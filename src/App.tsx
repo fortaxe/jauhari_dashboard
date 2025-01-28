@@ -90,7 +90,7 @@ function App() {
                     }
                   />
                   <Route
-                    path="/users/[id]/users-management"
+                    path="/users/:id"
                     element={
                       <>
                         <PageTitle title="User Management | Jauhari - Admin Dashboard" />

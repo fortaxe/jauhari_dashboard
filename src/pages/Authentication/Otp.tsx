@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 
 const Otp: React.FC = () => {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const mobileNumber = '9714961893';
+  const mobileNumber = '8367260182';
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -24,22 +25,12 @@ const Otp: React.FC = () => {
         body: JSON.stringify({ mobileNumber, otp }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.message === 'OTP verified successfully.') {
-          // Store token in localStorage
-          localStorage.setItem('authToken', data.token);
-         
-          navigate('/');
-        } else {
-          setError('Unexpected response from server');
-        }
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || 'Failed to verify OTP');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+      const data = await response.json();
+      navigate("/");
+      console.log(data);
+      toast.success(data.message);
+    } catch (err: any) {
+      toast.error(err.message);
     }
   };
 

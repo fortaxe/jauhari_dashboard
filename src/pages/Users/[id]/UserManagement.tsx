@@ -7,46 +7,57 @@ import Box from '../../../images/cards/box.png'
 import Calendar from '../../../images/cards/calendar.png'
 import PanCard from '../../../images/cards/pan-card.png'
 import Adhaar from '../../../images/cards/adhaar.png'
+import {fetchSingleUserData} from "../../../api/FetchSingleUser"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
+import moment from 'moment';
 
 const UserManagement = () => {
+    // const [isOpen, setIsOpen] = useState(false);
+    const [userData, setUserData] = useState<any>(null);
+    const { id } = useParams();
 
-    const columns = [
-        "GSP ID",
-        "GSP Status",
-        "Amount",
-        "Plan Start",
-        "Plan End",
-        "Last Payment Date",
-        "Next Payment Date",
-        "Credit",
-        "Debit",
-    ];
+    // const columns = [
+    //     "GSP ID",
+    //     "GSP Status",
+    //     "Amount",
+    //     "Plan Start",
+    //     "Plan End",
+    //     "Last Payment Date",
+    //     "Next Payment Date",
+    //     "Credit",
+    //     "Debit",
+    // ];
 
-    const data = Array.from({ length: 4 }, (_, index) => ({
-        "Student Name": `Student name ${index + 1}`,
-        Location: "Hyderabad",
-        Board: "CISCE",
-        Grade: "7",
-        Subject: "Mathematics",
-        Date: "20 Nov 2024",
-        Time: "10:00 AM",
-    }));
+    // api call
+    useEffect(() => {
+        console.log(id)
+        const fetchData = async () => {
+            const data = await fetchSingleUserData(id);
+            setUserData(data)
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div>
             <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-4 mb-[40px]">
-                <UserCard icon={User2} title='User Name' value='User Name' />
-                <UserCard icon={Notes} title='User ID' value='userid1234' />
-                <UserCard icon={Money} title='Phone' value='+91 9536 542 556' />
-                <UserCard icon={Telephone} title='Adhar Card Number' value='1234 5678 9123' />
-                <UserCard icon={Box} title='Total Amount Invested Across All GSPs Till Last Payment Date' value='₹56,000.00' />
-                <UserCard icon={Calendar} title='Total Gold Bought Across all GSPs Till Last Payment Date' value='8 grams' />
-                <UserCard icon={PanCard} title='Date Of Registration' value='02 Nov 2024' />
-                <UserCard icon={Adhaar} title='Pan card no.' value='1234 5647 5654' />
+                <UserCard icon={User2} title='User Name' value={userData?.userWithActiveSIP?.fullName} />
+                <UserCard icon={Notes} title='User ID' value={userData?.userWithActiveSIP?._id} />
+                <UserCard icon={Telephone} title='Phone' value={userData?.userWithActiveSIP?.mobileNumber} />
+                <UserCard icon={Adhaar} title='Adhar Card Number' value={userData?.userWithActiveSIP?.aadharCard} />
+                <UserCard icon={Money} title='Total Amount Invested Across All GSPs Till Last Payment Date' value={userData?.userWithActiveSIP?.activeSIPTotalInvestment} />
+                <UserCard icon={Box} title='Total Gold Bought Across all GSPs Till Last Payment Date' value={userData?.userWithActiveSIP?.totalGramsAccumulated} />
+                <UserCard icon={Calendar} title='Date Of Registration' value={userData?.userWithActiveSIP?.createdAt ? moment(userData.userWithActiveSIP.createdAt).format('MMM Do YY') : ''}
+ />
+                <UserCard icon={PanCard} title='Pan card no.' value={userData?.userWithActiveSIP?.panCard} />
             </div>
 
             <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-5 mb-[40px]">
-                <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
+                <div 
+                // onClick={() => setIsOpen(true)}
+                className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
                     <p className='text-base'>Gold Withdrawal History</p>
                 </div>
                 <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
@@ -55,10 +66,13 @@ const UserManagement = () => {
                 <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
                     <p className='text-base'>Withdraw Gold</p>
                 </div>
+                <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
+                    <p className='text-base'>Add Gold Manually</p>
+                </div>
             </div>
 
             {/* Tansaction List */}
-            <div>
+            {/* <div>
                 <div className='flex items-center justify-between'>
                     <div>
                         <p className='text-[23px] font-bold text-black'>Transaction History</p>
@@ -70,8 +84,8 @@ const UserManagement = () => {
                             </svg>
                         </button>
                     </div>
-                </div>
-                <div className="mt-[42px]">
+                </div> */}
+                {/* <div className="mt-[42px]">
                     <div className="">
                         <div className="overflow-x-auto">
                             <table className="min-w-full">
@@ -88,7 +102,7 @@ const UserManagement = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.map((row, rowIndex) => (
+                                    {userData?.map((row: any, rowIndex: any) => (
                                         <tr
                                             key={rowIndex}
                                             className={`${rowIndex % 2 === 0 ? "bg-white" : "bg-[#F5F5F5]"}`}
@@ -105,7 +119,10 @@ const UserManagement = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+        {/* Withdraw Popup */}
+        {/* {isOpen && <WithdrawPopup isOpen={isOpen} onClose={() => setIsOpen(false)} gold={10} sipId={"id"} />} */}
         </div>
     )
 }
