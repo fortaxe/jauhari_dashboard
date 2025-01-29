@@ -19,6 +19,8 @@ module.exports = {
       colors: {
         current: 'currentColor',
         transparent: 'transparent',
+        jauhari_red: "#7A231C",
+        jauhari_yellow: "#FFCB4E",
         white: '#FFFFFF',
         black: {
           ...colors.black,

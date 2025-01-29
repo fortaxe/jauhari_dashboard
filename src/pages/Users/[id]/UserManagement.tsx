@@ -11,9 +11,10 @@ import {fetchSingleUserData} from "../../../api/FetchSingleUser"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import moment from 'moment';
+import AddGoldManually from "../../../components/AddGoldManually"
 
 const UserManagement = () => {
-    // const [isOpen, setIsOpen] = useState(false);
+    const [isGoldAddManuallyOpen, setIsGoldAddManuallyOpen] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const { id } = useParams();
 
@@ -63,10 +64,14 @@ const UserManagement = () => {
                 <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
                     <p className='text-base'>User History</p>
                 </div>
-                <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
+                <div 
+                
+                className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
                     <p className='text-base'>Withdraw Gold</p>
                 </div>
-                <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
+                <div
+                onClick={() => setIsGoldAddManuallyOpen(true)}
+                className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center cursor-pointer'>
                     <p className='text-base'>Add Gold Manually</p>
                 </div>
             </div>
@@ -120,6 +125,14 @@ const UserManagement = () => {
                     </div>
                 </div>
             </div> */}
+
+        {/* Add Gold Manually Popup */}
+        {isGoldAddManuallyOpen && 
+        <AddGoldManually 
+        isOpen={isGoldAddManuallyOpen} 
+        onClose={() => setIsGoldAddManuallyOpen(false)} 
+        userId={userData?.userWithActiveSIP?._id}  
+        />}
 
         {/* Withdraw Popup */}
         {/* {isOpen && <WithdrawPopup isOpen={isOpen} onClose={() => setIsOpen(false)} gold={10} sipId={"id"} />} */}
