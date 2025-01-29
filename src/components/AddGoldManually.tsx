@@ -75,7 +75,7 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-xl">
+      <div className="bg-white rounded-[20px] p-6 w-full max-w-[350px]">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Add Gold SIP Manually</h2>
           <button 
@@ -87,8 +87,8 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center">
-            <label className="w-1/4 text-right mr-4 text-sm">Add Amount</label>
+        <div className="flex flex-col">
+            <label className="mb-1 font-medium text-sm">Add Amount</label>
             <input
               name="monthlyAmount"
               type="number"
@@ -98,8 +98,8 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
             />
           </div>
 
-          <div className="flex items-center">
-            <label className="w-1/4 text-right mr-4 text-sm">Months</label>
+          <div className="flex flex-col">
+          <label className="mb-1 font-medium text-sm">Months</label>
             <input
               name="months"
               type="number"
@@ -109,8 +109,8 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
             />
           </div>
 
-          <div className="flex items-center">
-            <label className="w-1/4 text-right mr-4 text-sm">Payment Mode</label>
+          <div className="flex flex-col">
+          <label className="mb-1 font-medium text-sm">Payment Mode</label>
             <select
               name="paymentMode"
               className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
@@ -125,8 +125,8 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
             </select>
           </div>
 
-          <div className="flex items-start">
-            <label className="w-1/4 text-right mr-4 text-sm pt-2">Admin Note</label>
+          <div className="flex flex-col">
+          <label className="mb-1 font-medium text-sm">Admin Note</label>
             <textarea
               name="adminNote"
               className="flex-1 min-h-[80px] rounded border border-gray-300 px-3 py-2"
