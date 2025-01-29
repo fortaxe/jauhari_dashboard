@@ -1,26 +1,22 @@
+
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { BASE_URL, token } from "../Constants";
 
-interface EditUserProps {
+interface DeleteUserProps {
     isOpen: boolean;
     onClose: () => void;
     userId: string;
-    fullName: string;
-    email: string;
-    mobileNumber: number;
-    panCard: string;
     onUserUpdate: (user: any) => void;
 }
 
-const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panCard, onUserUpdate }: EditUserProps) => {
+const DeleteUser = ({ isOpen, onClose, userId, onUserUpdate }: DeleteUserProps) => {
+    console.log(userId, "userId")
     const [formData, setFormData] = useState({
-        id: userId,
-        fullName: fullName,
-        email: email,
-        mobileNumber: mobileNumber,
-        panCard: panCard,
+        userId: userId,
+        otp: "",
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,19 +43,20 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
 
     const handleSubmit = async () => {
         try {
+            console.log('Sending data:', formData); // Add this line
             setIsSubmitting(true);
             setError("");
 
-            const response = await axios.patch(`${BASE_URL}/edit/user/by/admin`, formData, {
+            const response = await axios.delete(`${BASE_URL}/verify/delete/user/otp`, {
+                data: formData,
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
+            
 
             if (response.data) {
-                // Call onUserUpdate with the updated user data
                 onUserUpdate(response.data.user);
-                onClose();
                 toast.success("Gold added successfully");
             }
         } catch (err: any) {
@@ -76,7 +73,7 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-[20px] p-6 w-full max-w-[350px]">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold">Edit User</h2>
+                    <h2 className="text-xl font-semibold">Delete User</h2>
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700"
@@ -85,51 +82,23 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
                     </button>
                 </div>
 
+                {/* show otp send to user number */}
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-base font-normal">OTP Sent to user mobile number</h2>
+                </div>
+
+
                 <div className="space-y-4">
                     <div className="flex flex-col">
-                        <label className="mb-1 font-medium text-sm">Full Name</label>
+                        <label className="mb-1 font-medium text-sm">OTP</label>
                         <input
-                            name="fullName"
+                            name="otp"
                             type="text"
                             className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
-                            value={formData.fullName}
+                            value={formData.otp}
                             onChange={handleInputChange}
                         />
                     </div>
-
-                    <div className="flex flex-col">
-                        <label className="mb-1 font-medium text-sm">Email</label>
-                        <input
-                            name="email"
-                            type="text"
-                            className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="flex flex-col">
-                        <label className="mb-1 font-medium text-sm">Mobile Number</label>
-                        <input
-                            name="mobileNumber"
-                            type="number"
-                            className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
-                            value={formData.mobileNumber}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="flex flex-col">
-                        <label className="mb-1 font-medium text-sm">Pan Card</label>
-                        <input
-                            name="panCard"
-                            type="text"
-                            className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
-                            value={formData.panCard}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
 
                     {error && (
                         <div className="text-red-500 text-sm text-center">{error}</div>
@@ -148,7 +117,7 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
                         onClick={handleSubmit}
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "Editing..." : "Edit"}
+                        {isSubmitting ? "Deleting..." : "Delete"}
                     </button>
                 </div>
             </div>
@@ -156,4 +125,4 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
     );
 };
 
-export default EditUser;
+export default DeleteUser;

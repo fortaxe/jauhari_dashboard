@@ -3,11 +3,16 @@ import fetchUsersData from '../../api/FetchUsers';
 import { useNavigate } from "react-router-dom";
 import EditUser from "../../components/EditUser";
 import { Edit, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
+import { BASE_URL,token } from "../../Constants";
+import axios from "axios";
+import DeleteUser from "../../components/DeleteUser";
 
 const Users = () => {
     const navigate = useNavigate();
     const [usersData, setUsersData] = useState<any>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
 
     const columns = [
@@ -49,6 +54,35 @@ const Users = () => {
             )
         );
         setIsOpen(false);
+    };
+
+    // handlle delete update
+    const handleDeleteUpdate = (updatedUser: any) => {
+        setUsersData((prevUsers: any) =>
+            prevUsers.filter((user: any) => user._id !== updatedUser._id)
+        );
+        setDeleteOpen(false);
+    };
+
+    // send otp to user
+    const handleSendOtp = async (user: any) => {
+        try {
+            const response = await axios.post(`${BASE_URL}/delete/user`, { userId: user._id }, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.data) {
+                toast.success("OTP sent successfully");
+                setSelectedUser(user);
+                setDeleteOpen(true);
+                
+                
+            }
+        } catch (err: any) {
+            toast.error(err.message || "Failed to send OTP");
+        }
     };
 
     return (
@@ -118,6 +152,8 @@ const Users = () => {
                                             </td>
                                             <td className="border-none p-4 capitalize">
                                                 <Trash2
+                                                 onClick={() => handleSendOtp(user)}
+                                                 className="w-[20px] h-[20px] text-gray-800 cursor-pointer"
                                                 />
                                             </td>
 
@@ -141,6 +177,16 @@ const Users = () => {
                     mobileNumber={selectedUser?.mobileNumber}
                     panCard={selectedUser?.panCard}
                     onUserUpdate={handleUserUpdate}
+                />
+            )}
+
+            {/* Delete User Modal */}
+            {deleteOpen && (
+                <DeleteUser
+                    isOpen={deleteOpen}
+                    onClose={() => setDeleteOpen(false)}
+                    userId={selectedUser?._id}
+                    onUserUpdate={handleDeleteUpdate}
                 />
             )}
         </div>
