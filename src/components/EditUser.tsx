@@ -10,17 +10,15 @@ interface EditUserProps {
     fullName: string;
     email: string;
     mobileNumber: number;
-    panCard: string;
     onUserUpdate: (user: any) => void;
 }
 
-const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panCard, onUserUpdate }: EditUserProps) => {
+const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, onUserUpdate }: EditUserProps) => {
     const [formData, setFormData] = useState({
         id: userId,
         fullName: fullName,
         email: email,
         mobileNumber: mobileNumber,
-        panCard: panCard,
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -119,7 +117,7 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
                         />
                     </div>
 
-                    <div className="flex flex-col">
+                    {/* <div className="flex flex-col">
                         <label className="mb-1 font-medium text-sm">Pan Card</label>
                         <input
                             name="panCard"
@@ -128,7 +126,7 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, panC
                             value={formData.panCard}
                             onChange={handleInputChange}
                         />
-                    </div>
+                    </div> */}
 
 
                     {error && (

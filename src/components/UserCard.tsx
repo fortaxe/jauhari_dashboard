@@ -14,7 +14,8 @@ const UserCard: React.FC<UserCardProps> = ({ icon, title, value }) => {
       </div>
 
       <div>
-      <p className="text-sm text-gray-500">{title}</p>
+      {/* <p className="text-sm text-white bg-jauhari_red">{title}</p> */}
+      <p className="text-sm text-gray-600">{title}</p>
       <p className="text-[28px] leading-[33px] font-bold text-gray-900">{value}</p>
       </div>
     </div>
