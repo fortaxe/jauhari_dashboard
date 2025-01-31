@@ -12,10 +12,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import moment from 'moment';
 import AddGoldManually from "../../../components/AddGoldManually"
-
+import WithdrawalPopup from "../../../components/WithDrawal"
 
 const UserManagement = () => {
     const [isGoldAddManuallyOpen, setIsGoldAddManuallyOpen] = useState(false);
+    const [isWithdrawalPopupOpen, setIsWithdrawalPopupOpen] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const { id } = useParams();
 
@@ -26,8 +27,6 @@ const UserManagement = () => {
         "Plan Start",
         "Transaction Date",
         "Next Payment Date",
-       
-        
     ];
 
     // api call
@@ -67,7 +66,7 @@ const UserManagement = () => {
                     <p className='text-base'>Transactions</p>
                 </div>
                 <div
-
+                    onClick={() => setIsWithdrawalPopupOpen(true)}
                     className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
                     <p className='text-base'>Withdraw Gold</p>
                 </div>
@@ -124,9 +123,6 @@ const UserManagement = () => {
                                         </>
                                     ))}
                                 </tbody>
-
-
-
                             </table>
                         </div>
                     </div>
@@ -142,7 +138,7 @@ const UserManagement = () => {
                 />}
 
             {/* Withdraw Popup */}
-            {/* {isOpen && <WithdrawPopup isOpen={isOpen} onClose={() => setIsOpen(false)} gold={10} sipId={"id"} />} */}
+            {isWithdrawalPopupOpen && <WithdrawalPopup isOpen={isWithdrawalPopupOpen} onClose={() => setIsWithdrawalPopupOpen(false)} gramsAccumulated={"500"} sipId={userData?.userWithActiveSIP?.activeSIPId} />}
         </div>
     )
 }

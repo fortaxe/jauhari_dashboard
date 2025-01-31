@@ -8,7 +8,10 @@ const token = localStorage.getItem("authToken")
 export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
-        const response = await axios.post(`${url}/get/user/sip/details`, {
+        const response = await axios.post(
+            // `${url}/get/user/sip/details`
+            "http://localhost:5000/api/get/user/sip/details"
+            , {
             userId
         },
         {
