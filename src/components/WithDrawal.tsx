@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { BASE_URL, token } from "../Constants";
-import LogoIcon from '../../images/logo/logo-icon.svg';
-
+import Logo from './../images/logo/jauhari_logo.png';
 interface WithdrawalPopupProps {
     isOpen: boolean;
     onClose: () => void;
     sipId: string;
     gramsAccumulated: string
+    onSuccess: (response: any) => void;
 }
 
-const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated }: WithdrawalPopupProps) => {
+const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }: WithdrawalPopupProps) => {
     const [openOtp, setOpenOtp] = useState(false);
     const [formData, setFormData] = useState({
         otp: "",
@@ -54,6 +54,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated }: Withdrawa
             );
             
             if (response.data) {
+                
                 setOpenOtp(true);
                 toast.success("OTP sent successfully");
             }
@@ -85,6 +86,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated }: Withdrawa
             );
 
             if (response.data) {
+                onSuccess(response.data);
                 onClose();
                 toast.success("Withdrawal successful");
             }
@@ -108,11 +110,11 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated }: Withdrawa
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-[20px] p-6 w-full max-w-[350px]">
-                <div className="flex justify-between items-center mb-4">
+            <div className="bg-jauhari_red rounded-[20px] p-6 w-full max-w-[400px]">
+                <div className="flex justify-end items-center mb-4">
                     <button
                         onClick={onClose}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="text-white"
                     >
                         ✕
                     </button>
@@ -120,8 +122,14 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated }: Withdrawa
 
                 {!openOtp ? (
                     <>
-                        <div className="space-y-4">
-                        <h2 className="text-base font-normal">Avaiable Gold Balance: {gramsAccumulated}</h2>
+                        <div className="space-y-4  text-white">
+                            <img 
+                                src={Logo}
+                                alt="logo"
+                               
+                            />
+
+                        <h2 className="text-base font-semibold">Avaiable Gold Balance: {gramsAccumulated}</h2>
 
                             <button
                                 onClick={handleWithdraw}

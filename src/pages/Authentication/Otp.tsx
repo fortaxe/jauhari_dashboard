@@ -27,6 +27,8 @@ const Otp: React.FC = () => {
 
       const data = await response.json();
       navigate("/");
+      localStorage.setItem("authToken", data.token);
+      
       console.log(data);
       toast.success(data.message);
     } catch (err: any) {

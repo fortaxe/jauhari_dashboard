@@ -7,9 +7,10 @@ interface AddGoldManuallyProps {
   isOpen: boolean;
   onClose: () => void;
   userId: string;
+  onSuccess: (response: any) => void;
 }
 
-const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
+const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManuallyProps) => {
   const [formData, setFormData] = useState({
     userId: userId,
     monthlyAmount: "",
@@ -60,6 +61,7 @@ const AddGoldManually = ({ isOpen, onClose, userId }: AddGoldManuallyProps) => {
       });
       
       if (response.data) {
+        onSuccess(response.data);
         onClose();
       
         toast.success("Gold added successfully");

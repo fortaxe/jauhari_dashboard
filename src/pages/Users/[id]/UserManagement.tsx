@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom"
 import moment from 'moment';
 import AddGoldManually from "../../../components/AddGoldManually"
 import WithdrawalPopup from "../../../components/WithDrawal"
+import TransactionHistoryTabs from "../../../components/TransactionHistoryTabs"
 
 const UserManagement = () => {
     const [isGoldAddManuallyOpen, setIsGoldAddManuallyOpen] = useState(false);
@@ -20,27 +21,63 @@ const UserManagement = () => {
     const [userData, setUserData] = useState<any>(null);
     const { id } = useParams();
 
-    const columns = [
-        "GSP ID",
-        "GSP Status",
-        "Amount",
-        "Plan Start",
-        "Transaction Date",
-        "Next Payment Date",
-    ];
-
-    // api call
     useEffect(() => {
-        console.log(id)
         const fetchData = async () => {
             const data = await fetchSingleUserData(id);
-            setUserData(data)
+            setUserData(data);
         };
-
         fetchData();
-    }, []);
+    }, [id]);
 
-    console.log(userData)
+    // Handler for gold addition
+    const handleGoldAdded = (response: any) => {
+        console.log(response);
+        setUserData((prevData: any) => ({
+            ...prevData,
+            userWithActiveSIP: {
+                ...prevData.userWithActiveSIP,
+                totalGramsAccumulated: response.userSIP.totalGramsAccumulated,
+                activeSIPTotalInvestment: 
+                    (prevData.userWithActiveSIP.activeSIPTotalInvestment || 0) + 
+                    response.userSIP.transactions[response.userSIP.transactions.length - 1].amount
+            },
+            sipDetails: prevData.sipDetails.map((sip: any) => 
+                sip._id === response.userSIP._id 
+                    ? {
+                        ...sip,
+                        status: response.userSIP.status,
+                        nextDueDate: response.userSIP.nextDueDate,
+                        transactions: [...sip.transactions, response.userSIP.transactions[response.userSIP.transactions.length - 1]]
+                    }
+                    : sip
+            )
+        }));
+        setIsGoldAddManuallyOpen(false);
+    };
+
+    // Handler for withdrawal
+    const handleWithdrawal = (response: any) => {
+        console.log(response);
+        setUserData((prevData: any) => ({
+            ...prevData,
+            userWithActiveSIP: {
+                ...prevData.userWithActiveSIP,
+                totalGramsAccumulated: response.userSIP.totalGramsAccumulated,
+                activeSIPTotalInvestment: 0
+            },
+            sipDetails: prevData.sipDetails.map((sip: any) => 
+                sip._id === response.userSIP._id 
+                    ? {
+                        ...sip,
+                        status: response.userSIP.status,
+                        nextDueDate: response.userSIP.nextDueDate,
+                        transactions: [...sip.transactions, response.userSIP.transactions[response.userSIP.transactions.length - 1]]
+                    }
+                    : sip
+            )
+        }));
+        setIsWithdrawalPopupOpen(false);
+    };
 
     return (
         <div>
@@ -49,63 +86,60 @@ const UserManagement = () => {
                 <UserCard icon={Notes} title='User ID' value={userData?.userWithActiveSIP?._id} />
                 <UserCard icon={Telephone} title='Phone' value={userData?.userWithActiveSIP?.mobileNumber} />
                 <UserCard icon={Adhaar} title='Adhar Card Number' value={userData?.userWithActiveSIP?.aadharCard} />
-                <UserCard icon={Money} title='Total Amount Invested Across All GSPs Till Last Payment Date' value={userData?.userWithActiveSIP?.activeSIPTotalInvestment} />
-                <UserCard icon={Box} title='Total Gold Bought Across all GSPs Till Last Payment Date' value={userData?.userWithActiveSIP?.totalGramsAccumulated} />
-                <UserCard icon={Calendar} title='Date Of Registration' value={userData?.userWithActiveSIP?.createdAt ? moment(userData.userWithActiveSIP.createdAt).format('MMM Do YY') : ''}
+                <UserCard icon={Money} title='Total Amount Invested' value={userData?.userWithActiveSIP?.activeSIPTotalInvestment} />
+                <UserCard icon={Box} title='Total Gold Bought' value={userData?.userWithActiveSIP?.totalGramsAccumulated} />
+                <UserCard 
+                    icon={Calendar} 
+                    title='Date Of Registration' 
+                    value={userData?.userWithActiveSIP?.createdAt ? moment(userData.userWithActiveSIP.createdAt).format('MMM Do YY') : ''}
                 />
                 <UserCard icon={PanCard} title='Pan card no.' value={userData?.userWithActiveSIP?.panCard} />
             </div>
 
             <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-5 mb-[40px]">
                 <div
-                    // onClick={() => setIsOpen(true)}
-                    className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
-                    <p className='text-base'>Gold Withdrawal History</p>
-                </div>
-                <div className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
-                    <p className='text-base'>Transactions</p>
-                </div>
-                <div
                     onClick={() => setIsWithdrawalPopupOpen(true)}
-                    className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center'>
+                    className='bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center cursor-pointer'
+                >
                     <p className='text-base'>Withdraw Gold</p>
                 </div>
                 <div
                     onClick={() => setIsGoldAddManuallyOpen(true)}
-                    className=' bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center cursor-pointer'>
+                    className='bg-[#FFCB4E] h-[64px] rounded-[8px] text-[#7A231C] py-[22px] px-[41px] flex items-center justify-center cursor-pointer'
+                >
                     <p className='text-base'>Add Gold Manually</p>
                 </div>
             </div>
 
-            {/* Tansaction List */}
-            <div>
-                <div className='flex items-center justify-between'>
-                    <div>
-                        <p className='text-[23px] font-bold text-black'>Transaction History</p>
-                    </div>
-                    <div>
-                        <p className='text-[23px] font-bold text-black'>Withdrawal History</p>
-                    </div>
+            <div className="mt-[42px]">
+                <TransactionHistoryTabs userData={userData} />
+            </div>
 
-                </div>
-                <div className="mt-[42px]">
-                    <div className="">
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full">
-                                <thead>
-                                    <tr className="bg-[#F5F5F5]">
-                                        {columns.map((column, index) => (
-                                            <th
-                                                key={index}
-                                                className="border-none p-4 text-left text-[#828282] text-sm font-normal"
-                                            >
-                                                {column}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {userData?.sipDetails?.map((sip: any) => (
+            {isGoldAddManuallyOpen && (
+                <AddGoldManually
+                    isOpen={isGoldAddManuallyOpen}
+                    onClose={() => setIsGoldAddManuallyOpen(false)}
+                    userId={userData?.userWithActiveSIP?._id}
+                    onSuccess={handleGoldAdded}
+                />
+            )}
+
+            {isWithdrawalPopupOpen && (
+                <WithdrawalPopup 
+                    isOpen={isWithdrawalPopupOpen}
+                    onClose={() => setIsWithdrawalPopupOpen(false)}
+                    gramsAccumulated={userData?.userWithActiveSIP?.totalGramsAccumulated}
+                    sipId={userData?.userWithActiveSIP?.activeSIPId}
+                    onSuccess={handleWithdrawal}
+                />
+            )}
+        </div>
+    );
+};
+
+export default UserManagement;
+
+   {/* {userData?.sipDetails?.map((sip: any) => (
                                         <>
                                             {sip?.transactions?.map((txn: any, idx: number) => (
                                                 <tr key={txn?._id || idx} className="border-b">
@@ -115,36 +149,13 @@ const UserManagement = () => {
 
                                                     <td className="p-4">{moment(sip.startDate).format('MMM Do YY')}</td>
                                                     <td className="p-4">{moment(txn?.date).format('MMM Do YY')}</td>
-                                                    <td className="p-4">{sip?.nextDueDate === null ? "-" : moment(sip?.nextDueDate).format('MMM Do YY')}</td>
+                                                    <td className="p-4">{sip?.nextDueDate === null ? "-" : moment(sip?.nextDueDate).format('MMM Do YY')}</td> */}
                                                     {/* <td className="p-4">{txn.credit || 0}</td> */}
                                                     {/* <td className="p-4">{txn.debit || 0}</td> */}
-                                                </tr>
+                                                {/* </tr>
                                             ))}
                                         </>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Add Gold Manually Popup */}
-            {isGoldAddManuallyOpen &&
-                <AddGoldManually
-                    isOpen={isGoldAddManuallyOpen}
-                    onClose={() => setIsGoldAddManuallyOpen(false)}
-                    userId={userData?.userWithActiveSIP?._id}
-                />}
-
-            {/* Withdraw Popup */}
-            {isWithdrawalPopupOpen && <WithdrawalPopup isOpen={isWithdrawalPopupOpen} onClose={() => setIsWithdrawalPopupOpen(false)} gramsAccumulated={"500"} sipId={userData?.userWithActiveSIP?.activeSIPId} />}
-        </div>
-    )
-}
-
-export default UserManagement
-
+                                    ))} */}
 
 {/* <div>
                         <button className='h-[48px] rounded-[13px] flex items-center justify-center bg-[#EDEDED] text-[#282828] py-[22px] px-[41px] text-sm'>Filer By
