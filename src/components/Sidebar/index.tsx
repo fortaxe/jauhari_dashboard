@@ -254,8 +254,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               <li>
                 <NavLink
-                  to="/notifications"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('notifications') &&
+                  to="/payment-info"
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('payment-info') &&
                     'bg-white dark:bg-meta-4 text-[#7A231C]'
                     }`}
                 >
@@ -267,7 +267,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
 
-                  Notifications
+                  Payment Info
                 </NavLink>
               </li>
               {/* <!-- Menu Item Settings --> */}

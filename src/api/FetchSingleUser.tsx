@@ -24,3 +24,17 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 }
 
 
+export const fetchPaymentInfo = async () => {
+    try {
+        const response = await axios.get(`${url}/get/paymentConfirmation`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        },
+        )
+        return response.data
+    } catch (error: any) {
+        toast.error(error.message)
+    }
+}
+

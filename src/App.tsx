@@ -17,6 +17,7 @@ import DefaultLayout from './layout/DefaultLayout';
 import UserManagement from './pages/Users/[id]/UserManagement';
 import Otp from './pages/Authentication/Otp';
 import Users from './pages/Users';
+import PaymentInfo from "./pages/paymentInfo/Index";
 
 // Create authentication context
 const AuthContext = createContext({
@@ -98,6 +99,7 @@ function App() {
                       </>
                     }
                   />
+                  <Route path="/payment-info" element={<PaymentInfo />} />
                   <Route
                     path="/profile"
                     element={
@@ -170,7 +172,9 @@ function App() {
                       </>
                     }
                   />
+
                 </Routes>
+
               </DefaultLayout>
             </ProtectedRoute>
           }

@@ -116,7 +116,7 @@ const UserManagement = () => {
 
                                                     <td className="p-4">{moment(sip.startDate).format('MMM Do YY')}</td>
                                                     <td className="p-4">{moment(txn?.date).format('MMM Do YY')}</td>
-                                                    <td className="p-4">{moment(sip?.nextDueDate).format('MMM Do YY')}</td>
+                                                    <td className="p-4">{sip?.nextDueDate === null ? "-" : moment(sip?.nextDueDate).format('MMM Do YY')}</td>
                                                     {/* <td className="p-4">{txn.credit || 0}</td> */}
                                                     {/* <td className="p-4">{txn.debit || 0}</td> */}
                                                 </tr>
