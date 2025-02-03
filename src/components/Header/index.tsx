@@ -5,15 +5,29 @@ import DropdownUser from './DropdownUser';
 import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTZkODVmZWVmOTFlYmViYzA5M2IyYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNzk3NDM1Nn0.7uxsM1ziZRfBcfDm-89X6whMcB_cVQcADnkGD1X4CcA"
-
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
+  setSearchTerm?: (term: string) => void; // Accept setSearchTerm as a prop
 }) => {
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-[#f5f7fa] dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+
+      <div className="hidden sm:block">
+          <form action="https://formbold.com/s/unique_form_id" method="POST">
+            <div className="relative flex items-center justify-between w-[347px] h-[48px]">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="rounded-[13px] py-[14px] px-[32px] bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125 border border-[#7A231C]"
+              />
+
+
+            </div>
+          </form>
+        </div>
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
           <button
@@ -53,24 +67,13 @@ const Header = (props: {
           </button>
           {/* <!-- Hamburger Toggle BTN --> */}
 
+
+
           <Link className="block flex-shrink-0 lg:hidden" to="/">
             <img src={LogoIcon} alt="Logo" />
           </Link>
         </div>
-
-        <div className="hidden sm:block">
-          <form action="https://formbold.com/s/unique_form_id" method="POST">
-            <div className="relative flex items-center justify-between w-[347px] h-[48px]">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="rounded-[13px] py-[14px] px-[32px] bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125 border border-[#7A231C]"
-              />
-
-              
-            </div>
-          </form>
-        </div>
+  
 
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex hidden items-center gap-2 2xsm:gap-4">
@@ -93,6 +96,7 @@ const Header = (props: {
         </div>
       </div>
     </header>
+
   );
 };
 

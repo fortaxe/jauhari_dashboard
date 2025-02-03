@@ -8,7 +8,7 @@ interface Transaction {
   amount?: number;
   gramsAccumulated?: number;
   goldRate?: number;
-  nextDueDate?: string;
+
   transactionType: 'adminAddition' | 'withdrawal' | 'investment';
   paymentMode: 'cash' | 'creditCard' | 'upi';
   sipId: string;
@@ -22,7 +22,7 @@ interface SIP {
   _id: string;
   status: string;
   startDate: string;
-  nextDueDate: string;
+
   transactions: Transaction[];
 }
 
@@ -43,7 +43,7 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
     'Amount',
     'Grams Accumulated',
     'Gold Rate',
-    'Next Due Date',
+    
     'Transaction Type',
     'Payment Mode',
   ];
@@ -57,7 +57,7 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
           ...txn,
           sipId: sip?._id,
           startDate: sip?.startDate,
-          nextDueDate: sip?.nextDueDate,
+      
         }))
       ) || []
     );
@@ -89,11 +89,9 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
               <td className="p-4">₹ {txn?.amount?.toFixed(2)}</td>
               <td className="p-4">{txn?.gramsAccumulated?.toFixed(2)} gms</td>
               <td className="p-4">₹ {txn?.goldRate?.toFixed(2)}</td>
+             
               <td className="p-4">
-                {txn.nextDueDate ? moment(txn?.nextDueDate).format('MMM Do YY') : '-'}
-              </td>
-              <td className="p-4">
-                {txn.transactionType === 'adminAddition' ? 'Admin Addition' : txn.transactionType === 'withdrawal' ? 'Withdrawal' : 'User'}
+                {txn.transactionType === 'adminAddition' ? 'Admin' : txn.transactionType === 'withdrawal' ? 'Withdrawal' : 'User'}
                 </td>
               <td className="p-4">
                 {txn?.paymentMode

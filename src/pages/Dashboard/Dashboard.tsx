@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import UserImage from '../../images/cards/user.png'
-import Warning from '../../images/cards/warning.png'
 import MoneyPouch from '../../images/cards/money-pouch.png'
 import GreenSuccess from '../../images/cards/green-success.png'
 import OrangeSuccess from '../../images/cards/orange-success.png'
@@ -24,12 +23,12 @@ const Dashboard: React.FC = () => {
     <>
         <h2 className='text-[23px] font-bold text-black mb-[18px]'>User Details</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px] xl:grid-cols-3">
-        <CardDataStats title="Total Users" total={analyticData ? analyticData.totalUsers : "N/A"} img={UserImage} />
-        <CardDataStats title="Active GSPs" total={analyticData ? analyticData.activeSIPs : "N/A"} img={OrangeSuccess} />
-        <CardDataStats title="Completed GSPs" total={analyticData ? analyticData.completedSIPs : "N/A"} img={GreenSuccess} />
-        <CardDataStats title="Total Payment" total={analyticData ? analyticData.totalPayments.amount : "N/A"} img={MoneyPouch} />
-        <CardDataStats title="Missed Payments" total={analyticData?.missedPayments ? analyticData.missedPayments : "N/A"} img={Warning} />
-        <CardDataStats title="Total Gold Accumulated" total={analyticData ? analyticData.totalGoldAccumulated : "N/A"} img={Chart}/>
+        <CardDataStats title="Total Users" total={analyticData ? analyticData?.totalUsers : "N/A"} img={UserImage} />
+        <CardDataStats title="Active GSPs" total={analyticData ? analyticData?.activeSIPs : "N/A"} img={OrangeSuccess} />
+        <CardDataStats title="Completed GSPs" total={analyticData ? analyticData?.completedSIPs : "N/A"} img={GreenSuccess} />
+        <CardDataStats title="Total Payment" total={analyticData ? analyticData?.totalPayments?.amount.toFixed(2) : "N/A"} img={MoneyPouch} />
+        {/* <CardDataStats title="Missed Payments" total={analyticData?.missedPayments ? analyticData.missedPayments : "N/A"} img={Warning} /> */}
+        <CardDataStats title="Total Gold Accumulated" total={analyticData ? analyticData?.totalGoldAccumulated.toFixed(2) : "N/A"} img={Chart} />
       </div>
     </>
   );

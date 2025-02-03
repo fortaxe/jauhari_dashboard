@@ -91,7 +91,7 @@ function App() {
                     element={
                       <>
                         <PageTitle title="User Management | Jauhari - Admin Dashboard" />
-                        <Users />
+                        <Users  />
                         {/* <UserManagement /> */}
                       </>
                     }
