@@ -51,6 +51,7 @@ const UserManagement = () => {
             ...prevData,
             activeSIP: response.userSIP,
             sipDetails: response.sipDetails
+            
         }));
         setIsGoldAddManuallyOpen(false);
     };
@@ -60,7 +61,7 @@ const UserManagement = () => {
         <div>
             {/* {userData?.sipDetails?.length > 0 ? (
                 <> */}
-                    <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-4 mb-[40px]">
+                    <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-3 mb-[40px]">
                         <UserCard icon={User2} title='User Name' value={userData?.user?.fullName} />
                         <UserCard icon={Notes} title='Completed Months' value={userData?.activeSIP?.completedMonths} />
                         <UserCard icon={Telephone} title='Phone' value={userData?.user?.mobileNumber} />
@@ -113,8 +114,8 @@ const UserManagement = () => {
                 <WithdrawalPopup
                     isOpen={isWithdrawalPopupOpen}
                     onClose={() => setIsWithdrawalPopupOpen(false)}
-                    gramsAccumulated={userData?.user?.totalGramsAccumulated}
-                    sipId={userData?.user?.activeSIPId}
+                    gramsAccumulated={userData?.activeSIP?.totalGramsAccumulated}
+                    sipId={userData?.activeSIP?._id}
                     onSuccess={handleWithdrawal}
                 />
             )}

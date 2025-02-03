@@ -143,7 +143,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
                 ) : (
                     <>
                         <div className="space-y-4">
-                            <h2 className="text-base font-normal">Enter OTP sent to your mobile number</h2>
+                            {/* <h2 className="text-base font-normal">Enter OTP sent to your mobile number</h2> */}
                             <div className="flex flex-col">
                                 <input
                                     name="otp"
@@ -160,14 +160,16 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
                             )}
 
                             <div className="flex justify-end gap-2 mt-6">
+                             
+                               
                                 <button
-                                    className="px-6 py-2 rounded-full border border-gray-300 text-sm hover:bg-gray-50"
+                                    className="px-6 py-2 rounded-full bg-white font-semibold text-jauhari_red border border-gray-300 text-sm hover:bg-gray-50"
                                     onClick={onClose}
                                 >
                                     Cancel
                                 </button>
                                 <button
-                                    className="px-6 py-2 rounded-full bg-[#7A231C] text-white text-sm disabled:opacity-50"
+                                    className="px-6 py-2 rounded-full bg-jauhari_yellow font-semibold text-white text-sm disabled:opacity-50"
                                     onClick={handleVerifyOtp}
                                     disabled={isSubmitting}
                                 >
