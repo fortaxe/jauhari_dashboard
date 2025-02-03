@@ -18,6 +18,7 @@ import UserManagement from './pages/Users/[id]/UserManagement';
 import Otp from './pages/Authentication/Otp';
 import Users from './pages/Users';
 import PaymentInfo from "./pages/paymentInfo/Index";
+import { Toaster } from "react-hot-toast";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -185,6 +186,7 @@ function App() {
           }
         />
       </Routes>
+      <Toaster />
     </AuthContext.Provider>
   );
 }

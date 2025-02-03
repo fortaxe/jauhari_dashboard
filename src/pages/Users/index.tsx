@@ -140,7 +140,7 @@ const Users = () => {
                                             </td>
 
                                             <td className="border-none p-4 capitalize">
-                                                <button className='bg-[#54628D] w-[84px] h-[36px] text-white text-sm rounded-[8px]'
+                                                <button className='bg-jauhari_red w-[84px] h-[36px] text-white text-sm rounded-[8px]'
                                                     onClick={() => handleClick(user?._id)}
                                                 >View</button>
                                             </td>

@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
+// Type for a single Transaction
 interface Transaction {
   _id?: string;
-  transactionType: string;
-  amount: number;
   date: string;
-  sipId?: string;
-  sipStatus?: string;
-  startDate?: string;
-  nextDueDate?: string | null;
+  amount?: number;
+  gramsAccumulated?: number;
+  goldRate?: number;
+  nextDueDate?: string;
+  transactionType: 'adminAddition' | 'withdrawal' | 'investment';
+  paymentMode: 'cash' | 'creditCard' | 'upi';
+  sipId: string;
+  sipStatus: string;
+  startDate: string;
+
 }
 
-interface SipDetail {
+// Type for a single SIP
+interface SIP {
   _id: string;
   status: string;
   startDate: string;
-  nextDueDate: string | null;
+  nextDueDate: string;
   transactions: Transaction[];
 }
 
+// Type for user data
 interface UserData {
-  sipDetails: SipDetail[];
+  sipDetails: SIP[];
 }
 
 interface TransactionHistoryTabsProps {
@@ -32,39 +39,35 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
   const [activeTab, setActiveTab] = useState<'transactions' | 'withdrawals'>('transactions');
 
   const columns = [
-    'GSP ID',
-    'GSP Status',
-    'Amount',
-    'Plan Start',
     'Transaction Date',
-    'Next Payment Date',
+    'Amount',
+    'Grams Accumulated',
+    'Gold Rate',
+    'Next Due Date',
+    'Transaction Type',
+    'Payment Mode',
   ];
 
-  // Function to get all transactions from all SIPs
+  console.log(userData);
+
   const getAllTransactions = (): Transaction[] => {
     return (
       userData?.sipDetails?.flatMap((sip) =>
         sip.transactions.map((txn) => ({
           ...txn,
-          sipId: sip._id,
-          sipStatus: sip.status,
-          startDate: sip.startDate,
-          nextDueDate: sip.nextDueDate,
+          sipId: sip?._id,
+          startDate: sip?.startDate,
+          nextDueDate: sip?.nextDueDate,
         }))
       ) || []
     );
   };
 
-  // Function to get only withdrawal transactions
   const getWithdrawalTransactions = (): Transaction[] => {
     return getAllTransactions().filter((txn) => txn.transactionType === 'withdrawal');
   };
 
-  interface TransactionTableProps {
-    transactions: Transaction[];
-  }
-
-  const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => (
+  const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transactions }) => (
     <div className="overflow-x-auto">
       <table className="min-w-full">
         <thead>
@@ -80,16 +83,28 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
           </tr>
         </thead>
         <tbody>
-          {transactions.map((txn, idx) => (
+          {transactions?.map((txn, idx) => (
             <tr key={txn._id || idx} className="border-b">
-              <td className="p-4">{txn.sipId}</td>
-              <td className="p-4">{txn.sipStatus}</td>
-              <td className="p-4">{txn.amount ? txn.amount.toFixed(2) : '0.00'}</td>
-              <td className="p-4">{moment(txn.startDate).format('MMM Do YY')}</td>
-              <td className="p-4">{moment(txn.date).format('MMM Do YY')}</td>
+              <td className="p-4">{moment(txn?.date).format('MMM Do YY')}</td>
+              <td className="p-4">₹ {txn?.amount?.toFixed(2)}</td>
+              <td className="p-4">{txn?.gramsAccumulated?.toFixed(2)} gms</td>
+              <td className="p-4">₹ {txn?.goldRate?.toFixed(2)}</td>
               <td className="p-4">
-                {txn.nextDueDate === null ? '-' : moment(txn.nextDueDate).format('MMM Do YY')}
+                {txn.nextDueDate ? moment(txn?.nextDueDate).format('MMM Do YY') : '-'}
               </td>
+              <td className="p-4">
+                {txn.transactionType === 'adminAddition' ? 'Admin Addition' : txn.transactionType === 'withdrawal' ? 'Withdrawal' : 'User'}
+                </td>
+              <td className="p-4">
+                {txn?.paymentMode
+                  ? {
+                    cash: "Cash",
+                    creditCard: "Credit Card",
+                    upi: "UPI"
+                  }[txn.paymentMode] || '-'
+                  : '-'}
+              </td>
+
             </tr>
           ))}
         </tbody>
@@ -102,17 +117,15 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
       <div className="flex items-center gap-8 border-b">
         <button
           onClick={() => setActiveTab('transactions')}
-          className={`text-[23px] font-bold pb-2 ${
-            activeTab === 'transactions' ? 'border-b-2 border-[#7A231C] text-[#7A231C]' : 'text-black'
-          }`}
+          className={`text-[23px] font-bold pb-2 ${activeTab === 'transactions' ? 'border-b-2 border-[#7A231C] text-[#7A231C]' : 'text-black'
+            }`}
         >
           Transaction History
         </button>
         <button
           onClick={() => setActiveTab('withdrawals')}
-          className={`text-[23px] font-bold pb-2 ${
-            activeTab === 'withdrawals' ? 'border-b-2 border-[#7A231C] text-[#7A231C]' : 'text-black'
-          }`}
+          className={`text-[23px] font-bold pb-2 ${activeTab === 'withdrawals' ? 'border-b-2 border-[#7A231C] text-[#7A231C]' : 'text-black'
+            }`}
         >
           Withdrawal History
         </button>
