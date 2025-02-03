@@ -47,21 +47,20 @@ const UserManagement = () => {
     // Handler for withdrawal
     const handleWithdrawal = (response: any) => {
         console.log(response)
-        setUserData((prevData: any) => ({
-            ...prevData,
-            activeSIP: response.userSIP,
-            sipDetails: response.sipDetails
+        // setUserData((prevData: any) => ({
+        //     ...prevData,
+        //     activeSIP: response.userSIP,
+        //     sipDetails: response.sipDetails
             
-        }));
+        // }));
         setIsGoldAddManuallyOpen(false);
     };
     
-
     return (
-        <div>
+        <div className="bg-[#F5F7FA]">
             {/* {userData?.sipDetails?.length > 0 ? (
                 <> */}
-                    <div className="grid grid-cols-1 gap-[12px] lg:grid-cols-3 mb-[40px]">
+                    <div className="grid  grid-cols-1 gap-[12px] lg:grid-cols-3 mb-[40px]">
                         <UserCard icon={User2} title='User Name' value={userData?.user?.fullName} />
                         <UserCard icon={Notes} title='Completed Months' value={userData?.activeSIP?.completedMonths} />
                         <UserCard icon={Telephone} title='Phone' value={userData?.user?.mobileNumber} />

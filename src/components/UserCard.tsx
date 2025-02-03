@@ -8,9 +8,9 @@ type UserCardProps = {
 
 const UserCard: React.FC<UserCardProps> = ({ icon, title, value }) => {
   return (
-<div className="px-[20px] bg-[#F8F8F8] shadow-sm rounded-[10px] flex h-[76px] items-center">
+<div className="px-[20px] bg-white  rounded-[10px] flex h-[76px] items-center">
   {/* Icon and Title in the same row */}
-  <div className="w-full flex items-center justify-between">
+  <div className="w-full flex items-center justify-between ">
     <div className="flex items-center gap-2">
       <img src={icon} alt="User Icon" className="w-[24px] h-[24px] object-contain" />
       <p className="text-sm text-gray-600">{title}</p>

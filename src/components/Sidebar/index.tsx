@@ -105,19 +105,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${(pathname === '/') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname === '/' ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    className="[&>path]:stroke-white [&>path]:group-hover:stroke-[#7A231C] [&>path]:group-[.bg-white]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.89555 9.65775C1.98236 10.851 2.63499 11.8107 3.44602 11.9436C4.04844 12.0424 4.66697 12.1272 5.29758 12.1272C5.92821 12.1272 6.54672 12.0424 7.14914 11.9436C7.96018 11.8107 8.6128 10.851 8.69962 9.65775C8.7637 8.77689 8.81782 7.87253 8.81782 6.95056C8.81782 6.02857 8.7637 5.12423 8.69962 4.24336C8.6128 3.05013 7.96018 2.09042 7.14914 1.95747C6.54672 1.85873 5.92821 1.77393 5.29758 1.77393C4.66697 1.77393 4.04844 1.85873 3.44602 1.95747C2.63499 2.09042 1.98236 3.05013 1.89555 4.24336C1.83146 5.12423 1.77734 6.02857 1.77734 6.95056C1.77734 7.87253 1.83146 8.77689 1.89555 9.65775Z" stroke="#7A231C" strokeWidth="1.281" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M19.1349 11.399C19.048 10.2065 18.3939 9.24744 17.5811 9.11458C16.9772 9.0159 16.3574 8.93115 15.7254 8.93115C15.0934 8.93115 14.4734 9.0159 13.8697 9.11458C13.0568 9.24744 12.4027 10.2065 12.3157 11.399C12.2515 12.2793 12.1973 13.1831 12.1973 14.1044C12.1973 15.0259 12.2515 15.9296 12.3157 16.8099C12.4027 18.0023 13.0568 18.9615 13.8697 19.0943C14.4734 19.1929 15.0934 19.2777 15.7254 19.2777C16.3574 19.2777 16.9772 19.1929 17.5811 19.0943C18.3939 18.9615 19.048 18.0023 19.1349 16.8099C19.1992 15.9296 19.2534 15.0259 19.2534 14.1044C19.2534 13.1831 19.1992 12.2793 19.1349 11.399Z" stroke="#7A231C" strokeWidth="1.281" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M1.89555 18.3856C1.98236 18.8167 2.63499 19.1635 3.44602 19.2115C4.04844 19.2473 4.66697 19.2779 5.29758 19.2779C5.92821 19.2779 6.54672 19.2473 7.14914 19.2115C7.96018 19.1635 8.6128 18.8167 8.69962 18.3856C8.7637 18.0673 8.81782 17.7404 8.81782 17.4072C8.81782 17.074 8.7637 16.7472 8.69962 16.4289C8.6128 15.9978 7.96018 15.651 7.14914 15.603C6.54672 15.5672 5.92821 15.5366 5.29758 15.5366C4.66697 15.5366 4.04844 15.5672 3.44602 15.603C2.63499 15.651 1.98236 15.9978 1.89555 16.4289C1.83146 16.7472 1.77734 17.074 1.77734 17.4072C1.77734 17.7404 1.83146 18.0673 1.89555 18.3856Z" stroke="#7A231C" strokeWidth="1.281" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M19.1349 2.6663C19.048 2.2351 18.3939 1.88829 17.5811 1.84025C16.9772 1.80457 16.3574 1.77393 15.7254 1.77393C15.0934 1.77393 14.4734 1.80457 13.8697 1.84025C13.0568 1.88829 12.4027 2.2351 12.3157 2.6663C12.2515 2.98462 12.1973 3.31142 12.1973 3.64458C12.1973 3.97776 12.2515 4.30456 12.3157 4.62288C12.4027 5.05407 13.0568 5.40088 13.8697 5.44893C14.4734 5.4846 15.0934 5.51525 15.7254 5.51525C16.3574 5.51525 16.9772 5.4846 17.5811 5.44893C18.3939 5.40088 19.048 5.05407 19.1349 4.62288C19.1992 4.30456 19.2534 3.97776 19.2534 3.64458C19.2534 3.31142 19.1992 2.98462 19.1349 2.6663Z" stroke="#7A231C" strokeWidth="1.281" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-
-
-                  Dashboard
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    Dashboard
+                  </span>
                 </NavLink>
               </li>
               {/* <!-- Menu Item Dashboard --> */}
@@ -126,14 +127,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/users"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('user-management') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("users") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    className="[&>g>path]:stroke-white [&>g>path]:group-hover:stroke-[#7A231C] [&>g>path]:group-[.bg-white]:stroke-[#7A231C]"
+                    width={21}
+                    height={21}
+                    viewBox="0 0 21 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <g clipPath="url(#clip0_573_830)">
-                      <path d="M7.21289 5.56987C7.21289 6.44155 7.55916 7.27752 8.17553 7.89389C8.7919 8.51026 9.62788 8.85654 10.4996 8.85654C11.3712 8.85654 12.2072 8.51026 12.8236 7.89389C13.44 7.27752 13.7862 6.44155 13.7862 5.56987C13.7862 4.69819 13.44 3.86221 12.8236 3.24585C12.2072 2.62948 11.3712 2.2832 10.4996 2.2832C9.62788 2.2832 8.7919 2.62948 8.17553 3.24585C7.55916 3.86221 7.21289 4.69819 7.21289 5.56987Z" stroke="white" strokeWidth="1.28" />
-                      <path d="M17.0724 15.0193C17.0724 17.0614 17.0724 18.7168 10.4991 18.7168C3.92578 18.7168 3.92578 17.0614 3.92578 15.0193C3.92578 12.9772 6.86876 11.3218 10.4991 11.3218C14.1295 11.3218 17.0724 12.9772 17.0724 15.0193Z" stroke="white" strokeWidth="1.28" />
+                      <path
+                        d="M7.21289 5.56987C7.21289 6.44155 7.55916 7.27752 8.17553 7.89389C8.7919 8.51026 9.62788 8.85654 10.4996 8.85654C11.3712 8.85654 12.2072 8.51026 12.8236 7.89389C13.44 7.27752 13.7862 6.44155 13.7862 5.56987C13.7862 4.69819 13.44 3.86221 12.8236 3.24585C12.2072 2.62948 11.3712 2.2832 10.4996 2.2832C9.62788 2.2832 8.7919 2.62948 8.17553 3.24585C7.55916 3.86221 7.21289 4.69819 7.21289 5.56987Z"
+                        strokeWidth="1.28"
+                      />
+                      <path
+                        d="M17.0724 15.0193C17.0724 17.0614 17.0724 18.7168 10.4991 18.7168C3.92578 18.7168 3.92578 17.0614 3.92578 15.0193C3.92578 12.9772 6.86876 11.3218 10.4991 11.3218C14.1295 11.3218 17.0724 12.9772 17.0724 15.0193Z"
+                        strokeWidth="1.28"
+                      />
                     </g>
                     <defs>
                       <clipPath id="clip0_573_830">
@@ -141,8 +154,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-
-                  User Management
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    User Management
+                  </span>
                 </NavLink>
               </li>
               {/* <!-- Menu Item Calendar --> */}
@@ -219,13 +233,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     'bg-white dark:bg-meta-4 text-[#7A231C]'
                     }`}
                 >
-                 <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M5.79883 12.0669H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M5.79883 8.93311H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M5.79883 15.2002H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M14.4125 7.3666V19.1135H3.45312V5.02051H14.4125V7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M14.4137 15.9797H17.5473V4.23281V1.88672H6.58789V5.02031" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-</svg>
+                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.79883 12.0669H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M5.79883 8.93311H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M5.79883 15.2002H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M14.4125 7.3666V19.1135H3.45312V5.02051H14.4125V7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M14.4137 15.9797H17.5473V4.23281V1.88672H6.58789V5.02031" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                  </svg>
 
 
 
@@ -241,10 +255,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M1.88672 1.88672H19.1133V19.1133H1.88672V1.88672Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M1.88672 16.7673L7.36641 11.2876L12.0668 15.9798L15.2004 12.8462L19.1133 16.7673" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-  <path d="M10.5 7.3666C10.5 7.78214 10.6651 8.18066 10.9589 8.47449C11.2527 8.76833 11.6513 8.9334 12.0668 8.9334C12.4823 8.9334 12.8809 8.76833 13.1747 8.47449C13.4685 8.18066 13.6336 7.78214 13.6336 7.3666C13.6336 6.95106 13.4685 6.55254 13.1747 6.25871C12.8809 5.96488 12.4823 5.7998 12.0668 5.7998C11.6513 5.7998 11.2527 5.96488 10.9589 6.25871C10.6651 6.55254 10.5 6.95106 10.5 7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
-</svg>
+                    <path d="M1.88672 1.88672H19.1133V19.1133H1.88672V1.88672Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M1.88672 16.7673L7.36641 11.2876L12.0668 15.9798L15.2004 12.8462L19.1133 16.7673" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M10.5 7.3666C10.5 7.78214 10.6651 8.18066 10.9589 8.47449C11.2527 8.76833 11.6513 8.9334 12.0668 8.9334C12.4823 8.9334 12.8809 8.76833 13.1747 8.47449C13.4685 8.18066 13.6336 7.78214 13.6336 7.3666C13.6336 6.95106 13.4685 6.55254 13.1747 6.25871C12.8809 5.96488 12.4823 5.7998 12.0668 5.7998C11.6513 5.7998 11.2527 5.96488 10.9589 6.25871C10.6651 6.55254 10.5 6.95106 10.5 7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                  </svg>
 
 
 
@@ -255,19 +269,23 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/payment-info"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('payment-info') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("payment-info") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+                  <svg
+                    className="[&>path]:stroke-white [&>path]:group-hover:stroke-[#7A231C] [&>path]:group-[.bg-white]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.57047 7.2132C5.57047 5.90569 6.08988 4.65172 7.01443 3.72717C7.93899 2.80261 9.19295 2.2832 10.5005 2.2832C11.808 2.2832 13.062 2.80261 13.9865 3.72717C14.9111 4.65172 15.4305 5.90569 15.4305 7.2132C15.4305 12.9649 17.8955 14.6082 17.8955 14.6082H3.10547C3.10547 14.6082 5.57047 12.9649 5.57047 7.2132Z" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M9.10352 17.895C9.24105 18.1452 9.44323 18.3538 9.68895 18.4991C9.93466 18.6444 10.2149 18.7211 10.5003 18.7211C10.7858 18.7211 11.066 18.6444 11.3118 18.4991C11.5575 18.3538 11.7596 18.1452 11.8972 17.895" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
 
 
 
-
-                  Payment Info
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    Payment Info
+                  </span>
                 </NavLink>
               </li>
               {/* <!-- Menu Item Settings --> */}

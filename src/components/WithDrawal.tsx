@@ -54,7 +54,6 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
             );
             
             if (response.data) {
-                
                 setOpenOtp(true);
                 toast.success("OTP sent successfully");
             }
