@@ -19,13 +19,19 @@ import Otp from './pages/Authentication/Otp';
 import Users from './pages/Users';
 import PaymentInfo from "./pages/paymentInfo/Index";
 
+interface AuthContextType {
+  isAuthenticated: boolean;
+  setAuthenticated: (value: boolean) => void;
+}
+
+
 // Create authentication context
-const AuthContext = createContext({
+const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  setAuthenticated: (value: boolean) => {},
+  setAuthenticated: () => {},
 });
 
-const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -44,8 +50,7 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    // Check if token is present in localStorage
-    // localStorage.setItem('authToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTZkODVmZWVmOTFlYmViYzA5M2IyYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNzk3NDM1Nn0.7uxsM1ziZRfBcfDm-89X6whMcB_cVQcADnkGD1X4CcA');
+ 
     const token = localStorage.getItem('authToken');
     setAuthenticated(!!token);
 

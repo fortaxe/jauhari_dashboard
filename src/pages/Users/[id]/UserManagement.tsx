@@ -32,28 +32,40 @@ const UserManagement = () => {
     // Handler for gold addition
     const handleGoldAdded = (response: any) => {
         console.log(response);
-        setUserData((prevData: any) => ({
-            ...prevData,
-            userWithActiveSIP: {
-                ...prevData.userWithActiveSIP,
-                totalGramsAccumulated: response.userSIP.totalGramsAccumulated,
-                activeSIPTotalInvestment: 
-                    (prevData.userWithActiveSIP.activeSIPTotalInvestment || 0) + 
-                    response.userSIP.transactions[response.userSIP.transactions.length - 1].amount
-            },
-            sipDetails: prevData.sipDetails.map((sip: any) => 
-                sip._id === response.userSIP._id 
-                    ? {
-                        ...sip,
-                        status: response.userSIP.status,
-                        nextDueDate: response.userSIP.nextDueDate,
-                        transactions: [...sip.transactions, response.userSIP.transactions[response.userSIP.transactions.length - 1]]
-                    }
-                    : sip
-            )
-        }));
+        setUserData((prevData: any) => {
+            // Check if the SIP already exists in sipDetails
+            const sipExists = prevData.sipDetails.some((sip: any) => sip._id === response.userSIP._id);
+            
+            const updatedSipDetails = sipExists 
+                ? prevData.sipDetails.map((sip: any) => 
+                    sip._id === response.userSIP._id 
+                        ? {
+                            ...sip,
+                            status: response.userSIP.status,
+                            nextDueDate: response.userSIP.nextDueDate,
+                            transactions: [...sip.transactions, response.userSIP.transactions[response.userSIP.transactions.length - 1]]
+                        }
+                        : sip
+                )
+                : [...prevData.sipDetails, response.userSIP]; // Add new SIP to the list
+
+            return {
+                ...prevData,
+                userWithActiveSIP: {
+                    ...prevData.userWithActiveSIP,
+                    totalGramsAccumulated: response.userSIP.totalGramsAccumulated,
+                    activeSIPTotalInvestment: 
+                        (prevData.userWithActiveSIP.activeSIPTotalInvestment || 0) + 
+                        response.userSIP.transactions[response.userSIP.transactions.length - 1].amount,
+                    activeSIPId: response.userSIP._id // Update active SIP ID if needed
+                },
+                sipDetails: updatedSipDetails
+            };
+        });
         setIsGoldAddManuallyOpen(false);
     };
+
+    
 
     // Handler for withdrawal
     const handleWithdrawal = (response: any) => {
@@ -66,6 +78,7 @@ const UserManagement = () => {
                 activeSIPTotalInvestment: 0
             },
             sipDetails: prevData.sipDetails.map((sip: any) => 
+                
                 sip._id === response.userSIP._id 
                     ? {
                         ...sip,

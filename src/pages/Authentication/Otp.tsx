@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../App";
 
 const Otp: React.FC = () => {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const mobileNumber = '8367260182';
+  const { setAuthenticated } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,15 +28,18 @@ const Otp: React.FC = () => {
       });
 
       const data = await response.json();
-      navigate("/");
-      localStorage.setItem("authToken", data.token);
-      
-      console.log(data);
-      toast.success(data.message);
+      if (response.ok) {
+        localStorage.setItem("authToken", data.token);
+        setAuthenticated(true);  // Update the auth state
+        navigate("/");
+        toast.success(data.message);
+      } else {
+        throw new Error(data.message || 'Verification failed');
+      }
     } catch (err: any) {
       toast.error(err.message);
     }
-  };
+  }
 
   return (
     <div className="flex justify-center items-center h-screen bg-red-800">
