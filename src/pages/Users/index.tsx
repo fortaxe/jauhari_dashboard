@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { BASE_URL, token } from "../../Constants";
 import axios from "axios";
 import DeleteUser from "../../components/DeleteUser";
+import { useSearch } from "../../context/SearchContext";
 
 const Users = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Users = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const { searchTerm } = useSearch();
 
     const columns = [
         "User name",
@@ -37,13 +38,11 @@ const Users = () => {
     }, []);
 
     const filteredUsers = usersData?.filter((user: any) =>
-        user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.mobileNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.panCard.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.aadharCard.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+        Object.values(user)
+          .join(' ')
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
 
     const handleClick = (id: any) => {
         navigate(`/users/${id}`);

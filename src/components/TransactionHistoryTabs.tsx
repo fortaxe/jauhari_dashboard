@@ -38,22 +38,15 @@ interface TransactionHistoryTabsProps {
 const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userData }) => {
   const [activeTab, setActiveTab] = useState<'transactions' | 'withdrawals'>('transactions');
 
-  const columns = [
-    'Transaction Date',
-    'Amount',
-    'Grams Accumulated',
-    'Gold Rate',
-    
-    'Transaction Type',
-    'Payment Mode',
-  ];
+  const commonColumns = ['Transaction Date', 'Amount', 'Grams Accumulated', 'Gold Rate'];
+  const transactionColumns = [...commonColumns, 'Transaction Type', 'Payment Mode'];
 
   console.log(userData);
 
   const getAllTransactions = (): Transaction[] => {
     return (
       userData?.sipDetails?.flatMap((sip) =>
-        sip.transactions.map((txn) => ({
+        sip?.transactions?.map((txn) => ({
           ...txn,
           sipId: sip?._id,
           startDate: sip?.startDate,
@@ -67,7 +60,7 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
     return getAllTransactions().filter((txn) => txn.transactionType === 'withdrawal');
   };
 
-  const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transactions }) => (
+  const TransactionTable: React.FC<{ transactions: Transaction[]; columns: string[] }> = ({ transactions, columns }) => (
     <div className="overflow-x-auto">
       <table className="min-w-full">
         <thead>
@@ -89,7 +82,8 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
               <td className="p-4">₹ {txn?.amount?.toFixed(2)}</td>
               <td className="p-4">{txn?.gramsAccumulated?.toFixed(2)} gms</td>
               <td className="p-4">₹ {txn?.goldRate?.toFixed(2)}</td>
-             
+              {activeTab === 'transactions' && (
+                <>
               <td className="p-4">
                 {txn.transactionType === 'adminAddition' ? 'Admin' : txn.transactionType === 'withdrawal' ? 'Withdrawal' : 'User'}
                 </td>
@@ -99,10 +93,11 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
                     cash: "Cash",
                     creditCard: "Credit Card",
                     upi: "UPI"
-                  }[txn.paymentMode] || '-'
+                  }[txn?.paymentMode] || '-'
                   : '-'}
               </td>
-
+              </>
+)}
             </tr>
           ))}
         </tbody>
@@ -130,8 +125,8 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
       </div>
 
       <div className="mt-[42px]">
-        {activeTab === 'transactions' && <TransactionTable transactions={getAllTransactions()} />}
-        {activeTab === 'withdrawals' && <TransactionTable transactions={getWithdrawalTransactions()} />}
+        {activeTab === 'transactions' && <TransactionTable transactions={getAllTransactions()} columns={transactionColumns} />}
+        {activeTab === 'withdrawals' && <TransactionTable transactions={getWithdrawalTransactions()} columns={commonColumns} />}
       </div>
     </div>
   );

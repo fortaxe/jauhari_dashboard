@@ -58,7 +58,7 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, onUs
                 // Call onUserUpdate with the updated user data
                 onUserUpdate(response.data.user);
                 onClose();
-                toast.success("Gold added successfully");
+                toast.success("User updated successfully");
             }
         } catch (err: any) {
             setError(err.message || "Failed to update user");

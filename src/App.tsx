@@ -19,6 +19,7 @@ import Otp from './pages/Authentication/Otp';
 import Users from './pages/Users';
 import PaymentInfo from "./pages/paymentInfo/Index";
 import { Toaster } from "react-hot-toast";
+import { SearchProvider } from "./context/SearchContext";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -65,6 +66,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={authContextValue}>
+      <SearchProvider>
       <Routes>
         {/* Auth Routes */}
         <Route path="/auth/signin" element={<SignIn />} />
@@ -186,7 +188,9 @@ function App() {
           }
         />
       </Routes>
+
       <Toaster />
+      </SearchProvider>
     </AuthContext.Provider>
   );
 }

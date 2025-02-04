@@ -4,28 +4,38 @@ import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
+import { useLocation } from "react-router-dom";
+import { useSearch } from "../../context/SearchContext";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
   setSearchTerm?: (term: string) => void; // Accept setSearchTerm as a prop
 }) => {
+ const { pathname } = useLocation();
+ const { searchTerm, setSearchTerm } = useSearch();
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-[#f5f7fa] dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
 
+     
       <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
+          {/* {pathname === "users" && ( */}
             <div className="relative flex items-center justify-between w-[347px] h-[48px]">
               <input
                 type="text"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="rounded-[13px] py-[14px] px-[32px] bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125 border border-[#7A231C]"
               />
 
 
             </div>
+          {/* )} */}
+
           </form>
         </div>
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">

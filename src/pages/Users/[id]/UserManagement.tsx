@@ -23,13 +23,14 @@ const UserManagement = () => {
     const [userData, setUserData] = useState<any>(null);
     const { id } = useParams();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchSingleUserData(id);
-            setUserData(data);
-        };
-        fetchData();
+    // Define fetchData outside useEffect
+    const fetchData = async () => {
+        const data = await fetchSingleUserData(id);
+        setUserData(data);
+    };
 
+    useEffect(() => {
+        fetchData();
     }, [id]);
 
     // Handler for gold addition
@@ -46,15 +47,9 @@ const UserManagement = () => {
     console.log(userData)
 
     // Handler for withdrawal
-    const handleWithdrawal = (response: any) => {
-        console.log(response)
-        setUserData((prevData: any) => ({
-            ...prevData,
-            activeSIP: '',
-            // sipDetails: response.sipDetails
-
-        }));
-        setIsGoldAddManuallyOpen(false);
+    const handleWithdrawal = async () => {
+        setIsWithdrawalPopupOpen(false);
+        await fetchData();
     };
 
     return (

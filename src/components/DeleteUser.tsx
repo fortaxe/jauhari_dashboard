@@ -57,7 +57,7 @@ const DeleteUser = ({ isOpen, onClose, userId, onUserUpdate }: DeleteUserProps) 
 
             if (response.data) {
                 onUserUpdate(response.data.user);
-                toast.success("Gold added successfully");
+                toast.success("User Deleted Successfully");
             }
         } catch (err: any) {
             setError(err.message || "Failed to update user");
