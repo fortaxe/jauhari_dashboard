@@ -87,8 +87,8 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
       }
       
       const response = await axios.post(
-        // `${BASE_URL}/add/amount/sip/amount`
-        "http://localhost:5000/api/add/amount/sip/amount"
+        `${BASE_URL}/add/amount/sip/amount`
+        // "http://localhost:5000/api/add/amount/sip/amount"
         , formData, {
         headers: {
           "Authorization": `Bearer ${token}`

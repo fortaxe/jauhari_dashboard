@@ -159,10 +159,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </span>
                 </NavLink>
               </li>
-              {/* <!-- Menu Item Calendar --> */}
 
-              {/* <!-- Menu Item Profile --> */}
-              <li>
+              {/* gsp management */}
+              {/* <li>
                 <NavLink
                   to="/gsp-management"
                   className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('gsp-management') && 'bg-white dark:bg-meta-4 text-[#7A231C]'
@@ -177,36 +176,39 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
                   GSP Management
                 </NavLink>
-              </li>
-              {/* <!-- Menu Item Profile --> */}
+              </li> */}
 
-              {/* <!-- Menu Item Tables --> */}
               <li>
                 <NavLink
                   to="/recent-transactions"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('recent-transactions') && 'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("recent-transactions") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<svg 
+  className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+  width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
                     <path d="M3.92654 4.74854H17.0732C17.0732 4.74854 18.7165 4.74854 18.7165 6.39187V14.6085C18.7165 14.6085 18.7165 16.2519 17.0732 16.2519H3.92654C3.92654 16.2519 2.2832 16.2519 2.2832 14.6085V6.39187C2.2832 6.39187 2.2832 4.74854 3.92654 4.74854Z" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M2.2832 8.85645H18.7165" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-
-
-                  Recent Transactions
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    Recent Transactions
+                  </span>
                 </NavLink>
               </li>
-              {/* <!-- Menu Item Tables --> */}
 
-              {/* <!-- Menu Item Settings --> */}
               <li>
                 <NavLink
                   to="/business-setup"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('business-setup') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("business-setup") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<svg 
+  className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+  width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
                     <path d="M5.01953 1.88672H15.9789V19.1133H5.01953V1.88672Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M7.36719 5.02051H8.93398" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M7.36719 8.15381H8.93398" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
@@ -222,18 +224,22 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <path d="M15.9805 19.1133H19.1141V12.0668L15.9805 10.5V19.1133Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                   </svg>
 
-
-                  Business Setup
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    Business Setup
+                  </span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/pages"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('pages') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("pages") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                  <svg
+                    className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
                     <path d="M5.79883 12.0669H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M5.79883 8.93311H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M5.79883 15.2002H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
@@ -242,19 +248,23 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
 
 
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
 
-
-                  Pages and Media
+                    Pages and Media
+                  </span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/banner-setup"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] py-2 px-4 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes('banner-setup') &&
-                    'bg-white dark:bg-meta-4 text-[#7A231C]'
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("banner-setup") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
-                  <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                  <svg
+                    className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
                     <path d="M1.88672 1.88672H19.1133V19.1133H1.88672V1.88672Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M1.88672 16.7673L7.36641 11.2876L12.0668 15.9798L15.2004 12.8462L19.1133 16.7673" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M10.5 7.3666C10.5 7.78214 10.6651 8.18066 10.9589 8.47449C11.2527 8.76833 11.6513 8.9334 12.0668 8.9334C12.4823 8.9334 12.8809 8.76833 13.1747 8.47449C13.4685 8.18066 13.6336 7.78214 13.6336 7.3666C13.6336 6.95106 13.4685 6.55254 13.1747 6.25871C12.8809 5.96488 12.4823 5.7998 12.0668 5.7998C11.6513 5.7998 11.2527 5.96488 10.9589 6.25871C10.6651 6.55254 10.5 6.95106 10.5 7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
@@ -262,8 +272,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
 
-
-                  Banner Setup
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+                    Banner Setup
+                  </span>
                 </NavLink>
               </li>
               <li>
