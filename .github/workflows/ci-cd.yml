@@ -24,7 +24,7 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      - name: Deploy to Hostinger VPS
+      - name: Deploy to Hostinger VPS  
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOSTINGER_VPS_IP }}
