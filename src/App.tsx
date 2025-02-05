@@ -23,19 +23,7 @@ import { SearchProvider } from "./context/SearchContext";
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./context/AuthContext";
 
-// interface AuthContextType {
-//   isAuthenticated: boolean;
-//   setAuthenticated: (value: boolean) => void;
-// }
 
-
-// // Create authentication context
-// const AuthContext = createContext<AuthContextType>({
-//   isAuthenticated: false,
-//   setAuthenticated: () => {},
-// });
-
-// export const useAuth = () => useContext(AuthContext);
 
 //Protected Route Component
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -67,7 +55,6 @@ function App() {
   if (loading) return <Loader />;
 
   return (
-    <AuthProvider>
    
       <SearchProvider>
       <Routes>
@@ -196,7 +183,7 @@ function App() {
     
       </SearchProvider> 
       
-      </AuthProvider>
+     
   );
 }
 
