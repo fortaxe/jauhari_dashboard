@@ -22,7 +22,7 @@ const Header = (props: {
      
       <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
-          {/* {pathname === "users" && ( */}
+          {pathname === "/users" && (
             <div className="relative flex items-center justify-between w-[347px] h-[48px]">
               <input
                 type="text"
@@ -34,7 +34,7 @@ const Header = (props: {
 
 
             </div>
-          {/* )} */}
+          )}
 
           </form>
         </div>
