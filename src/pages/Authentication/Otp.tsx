@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from "../../App";
+import { useAuth } from "../../context/AuthContext";
 import { BASE_URL } from "../../Constants";
+
 
 const Otp: React.FC = () => {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const mobileNumber = '8367260182';
-  const { setAuthenticated } = useAuth();
+  const { setAuthenticated, storedOtp } = useAuth();
+
+  console.log("Stored OTP in context:", storedOtp);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -31,7 +34,7 @@ const Otp: React.FC = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("authToken", data.token);
-        setAuthenticated(true);  // Update the auth state
+        setAuthenticated(true);
         navigate("/");
         toast.success(data.message);
       } else {
@@ -55,6 +58,14 @@ const Otp: React.FC = () => {
             placeholder="Enter OTP"
             className="w-full px-3 py-2 mb-4 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
           />
+          
+          {/* Explicitly show the stored OTP if it exists */}
+          {storedOtp && (
+            <p className="mb-4 text-[16px] text-gray-600">
+              OTP: {storedOtp}
+            </p>
+          )}
+          
           <button
             type="submit"
             className="w-full px-4 py-2 text-lg font-medium text-center text-red-800 bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600"
@@ -67,4 +78,4 @@ const Otp: React.FC = () => {
   );
 };
 
-export default Otp;
+export default Otp

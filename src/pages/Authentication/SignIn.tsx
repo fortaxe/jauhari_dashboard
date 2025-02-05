@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { BASE_URL } from "../../Constants";
 import { useNavigate } from 'react-router-dom';
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 const SignIn: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { setStoredOtp } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -27,7 +30,10 @@ const SignIn: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         if (data.message === 'OTP sent successfully') {
+          console.log(data.otp, "otp");
+          setStoredOtp(data.otp);
           navigate('/auth/otp');
+          toast.success("otp send successfully");
         } else {
           setError('Unexpected response from server');
         }

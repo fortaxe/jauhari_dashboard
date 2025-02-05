@@ -20,20 +20,22 @@ import Users from './pages/Users';
 import PaymentInfo from "./pages/paymentInfo/Index";
 import { Toaster } from "react-hot-toast";
 import { SearchProvider } from "./context/SearchContext";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 
-interface AuthContextType {
-  isAuthenticated: boolean;
-  setAuthenticated: (value: boolean) => void;
-}
+// interface AuthContextType {
+//   isAuthenticated: boolean;
+//   setAuthenticated: (value: boolean) => void;
+// }
 
 
-// Create authentication context
-const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  setAuthenticated: () => {},
-});
+// // Create authentication context
+// const AuthContext = createContext<AuthContextType>({
+//   isAuthenticated: false,
+//   setAuthenticated: () => {},
+// });
 
-export const useAuth = () => useContext(AuthContext);
+// export const useAuth = () => useContext(AuthContext);
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -65,7 +67,7 @@ function App() {
   if (loading) return <Loader />;
 
   return (
-    <AuthContext.Provider value={authContextValue}>
+    <AuthProvider>
       <SearchProvider>
       <Routes>
         {/* Auth Routes */}
@@ -190,8 +192,9 @@ function App() {
       </Routes>
 
       <Toaster />
+     
       </SearchProvider>
-    </AuthContext.Provider>
+      </AuthProvider>
   );
 }
 
