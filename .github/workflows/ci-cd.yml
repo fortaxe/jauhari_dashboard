@@ -24,13 +24,20 @@ jobs:
       - name: Build React app
         run: npm run build
 
+      - name: Debugging SSH Keys & Connection Info
+        run: |
+          echo "Public Key: ${{ secrets.HOSTINGER_VPS_SSH_KEY }}" | head -n 1  # Only log the first line of the public key for verification
+          echo "Username: ${{ secrets.HOSTINGER_VPS_USER }}"
+          echo "Host: ${{ secrets.HOSTINGER_VPS_IP }}"
+          echo "SSH Port: ${{ secrets.HOSTINGER_VPS_PORT }}"  # Assuming you store the port in GitHub secrets
+
       - name: Deploy to Hostinger VPS  
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOSTINGER_VPS_IP }}
           username: ${{ secrets.HOSTINGER_VPS_USER }}
           key: ${{ secrets.HOSTINGER_VPS_SSH_KEY }}
-          port: 22
+          port: ${{ secrets.HOSTINGER_VPS_PORT }}  # Use correct port from secrets
           debug: true 
           source: "dist/"  
           target: "/var/www/html/admin.jauharijeweller.com/jauhari_dashboard"  
@@ -41,7 +48,9 @@ jobs:
           host: ${{ secrets.HOSTINGER_VPS_IP }}
           username: ${{ secrets.HOSTINGER_VPS_USER }}
           key: ${{ secrets.HOSTINGER_VPS_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_VPS_PORT }}  # Use correct port from secrets
           script: |
             sudo chown -R www-data:www-data /var/www/html/admin.jauharijeweller.com
             sudo chmod -R 755 /var/www/html/admin.jauharijeweller.com
             sudo systemctl reload nginx
+          debug: true
