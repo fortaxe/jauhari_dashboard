@@ -1,15 +1,14 @@
 
 import axios from "axios";
 import toast from "react-hot-toast";
-
-const url = "http://46.202.163.138:5000/api"
+import { BASE_URL } from "../Constants";
 const token = localStorage.getItem("authToken")
 
 export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
         const response = await axios.post(
-            `${url}/get/user/sip/details`
+            `${BASE_URL}/get/user/sip/details`
             , {
             userId
         },
@@ -28,7 +27,7 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 
 export const fetchPaymentInfo = async () => {
     try {
-        const response = await axios.get(`${url}/get/paymentConfirmation`, {
+        const response = await axios.get(`${BASE_URL}/get/paymentConfirmation`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

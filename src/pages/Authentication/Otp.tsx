@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../App";
+import { BASE_URL } from "../../Constants";
 
 const Otp: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -19,7 +20,7 @@ const Otp: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://46.202.163.138:5000/api/admin/verify/otp', {
+      const response = await fetch(`${BASE_URL}/admin/verify/otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BASE_URL } from "../../Constants";
 import { useNavigate } from 'react-router-dom';
 
 const SignIn: React.FC = () => {
@@ -15,7 +16,7 @@ const SignIn: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://46.202.163.138:5000/api/admin-login', {
+      const response = await fetch(`${BASE_URL}/admin-login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

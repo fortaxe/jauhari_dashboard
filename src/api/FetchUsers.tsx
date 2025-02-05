@@ -1,5 +1,7 @@
+import { BASE_URL } from "../Constants";
+
 const fetchUsersData = async () => {
-    const url = 'http://46.202.163.138:5000/api/get/users';
+    const url = `${BASE_URL}/get/users`;
   
     // Retrieve the token from local storage
     const token = localStorage.getItem('authToken');
