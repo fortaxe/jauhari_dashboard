@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,14 +30,16 @@ jobs:
           host: ${{ secrets.HOSTINGER_VPS_IP }}
           username: ${{ secrets.HOSTINGER_VPS_USER }}
           key: ${{ secrets.HOSTINGER_VPS_SSH_KEY }}
-          source: "build/*"
-          target: "/var/www/react-app"
+          source: "dist/"  
+          target: "/var/www/html/admin.jauharijeweller.com/jauhari_dashboard"  
 
-      - name: Restart Nginx (if needed)
+      - name: Set permissions and restart Nginx
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.HOSTINGER_VPS_IP }}
           username: ${{ secrets.HOSTINGER_VPS_USER }}
           key: ${{ secrets.HOSTINGER_VPS_SSH_KEY }}
           script: |
-            sudo systemctl restart nginx
+            sudo chown -R www-data:www-data /var/www/html/admin.jauharijeweller.com
+            sudo chmod -R 755 /var/www/html/admin.jauharijeweller.com
+            sudo systemctl reload nginx
