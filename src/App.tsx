@@ -37,11 +37,11 @@ import { useAuth } from "./context/AuthContext";
 
 // export const useAuth = () => useContext(AuthContext);
 
-// Protected Route Component
-// const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-//   const { isAuthenticated } = useAuth();
-//   return isAuthenticated ? children : <Navigate to="/auth/signin" replace />;
-// };
+//Protected Route Component
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/auth/signin" replace />;
+};
 
 // App Component
 function App() {
@@ -68,6 +68,7 @@ function App() {
 
   return (
     <AuthProvider>
+   
       <SearchProvider>
       <Routes>
         {/* Auth Routes */}
@@ -78,7 +79,7 @@ function App() {
         <Route
           path="*"
           element={
-           
+            <ProtectedRoute>
               <DefaultLayout>
                 <Routes>
                   <Route
@@ -186,14 +187,15 @@ function App() {
                 </Routes>
 
               </DefaultLayout>
-         
+              </ProtectedRoute>
           }
         />
       </Routes>
 
       <Toaster />
-     
-      </SearchProvider>
+    
+      </SearchProvider> 
+      
       </AuthProvider>
   );
 }
