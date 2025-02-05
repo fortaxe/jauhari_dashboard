@@ -1,5 +1,8 @@
+import { BASE_URL } from "../Constants";
+
+
 const fetchAnalyticsData = async () => {
-    const url = 'http://46.202.163.138:5000/api/get/sip/analytics';
+    const url =  `${BASE_URL}/get/sip/analytics`;
   
     // Retrieve the token from local storage
     const token = localStorage.getItem('authToken');
