@@ -4,7 +4,6 @@ import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import Chart from './pages/Chart';
 import Dashboard from './pages/Dashboard/Dashboard';
-import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
@@ -20,7 +19,7 @@ import { Toaster } from "react-hot-toast";
 import { SearchProvider } from "./context/SearchContext";
 import { useAuth } from "./context/AuthContext";
 import Plan from "./pages/plan";
-
+import RecentTransactions from "./pages/RecentTransactions";
 
 //Protected Route Component
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -102,11 +101,11 @@ function App() {
                     }
                   />
                   <Route
-                    path="/forms/form-elements"
+                    path="/recent-transactions"
                     element={
                       <>
-                        <PageTitle title="Form Elements | Jauhari - Admin Dashboard" />
-                        <FormElements />
+                        <PageTitle title="Recent Transactions | Jauhari - Admin Dashboard" />
+                        <RecentTransactions />
                       </>
                     }
                   />
