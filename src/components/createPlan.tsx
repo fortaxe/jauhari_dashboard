@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import useAuthToken from "../hooks/useAuthToken";
-
+import { BASE_URL } from "../Constants";
 interface PlanPopupProps {
     isOpen: boolean;
     onClose: () => void;
@@ -13,7 +13,7 @@ interface PlanPopupProps {
 }
 
 const PlanPopup: React.FC<PlanPopupProps> = ({ isOpen, onClose, planAmount, planName, onSuccess }) => {
- 
+
     const [formData, setFormData] = useState({
         planAmount: planAmount,
         planName: planName,
@@ -49,7 +49,8 @@ const PlanPopup: React.FC<PlanPopupProps> = ({ isOpen, onClose, planAmount, plan
             }
 
             const response = await axios.post(
-                "http://localhost:5000/api/create/plan",
+                // "http://localhost:5000/api/create/plan"
+                `${BASE_URL}/create/plan`,
                 formDataToSend,
                 {
                     headers: {
@@ -60,8 +61,8 @@ const PlanPopup: React.FC<PlanPopupProps> = ({ isOpen, onClose, planAmount, plan
             );
 
             if (response.data) {
-               
-                toast.success("OTP sent successfully");
+
+                toast.success("Plan created successfully");
                 if (onSuccess) onSuccess(response.data);
             }
         } catch (error: any) {

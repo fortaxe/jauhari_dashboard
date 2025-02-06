@@ -8,8 +8,8 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
         const response = await axios.post(
-            // `${BASE_URL}/get/user/sip/details`
-            "http://localhost:5000/api/get/user/sip/details"
+            `${BASE_URL}/get/user/sip/details`
+            // "http://localhost:5000/api/get/user/sip/details"
             , {
             userId
         },
@@ -42,8 +42,8 @@ export const fetchPaymentInfo = async () => {
 export const fetchPlans = async () => {
     try {
         const response = await axios.get(
-            // `${BASE_URL}/get/plans`
-            "http://localhost:5000/api/get/plans"
+            `${BASE_URL}/get/plans`
+            // "http://localhost:5000/api/get/plans"
             , {
             headers: {
                 "Authorization": `Bearer ${token}`
