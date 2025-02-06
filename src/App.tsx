@@ -1,7 +1,5 @@
-import { useEffect, useState, createContext, useContext } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-
-import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import Chart from './pages/Chart';
@@ -20,9 +18,8 @@ import Users from './pages/Users';
 import PaymentInfo from "./pages/paymentInfo/Index";
 import { Toaster } from "react-hot-toast";
 import { SearchProvider } from "./context/SearchContext";
-import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./context/AuthContext";
-
+import Plan from "./pages/plan";
 
 
 //Protected Route Component
@@ -33,26 +30,14 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
 // App Component
 function App() {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
+ 
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
- 
-    const token = localStorage.getItem('authToken');
-    setAuthenticated(!!token);
 
-    // Simulate loading
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
-  const authContextValue = { isAuthenticated, setAuthenticated };
-
-  if (loading) return <Loader />;
 
   return (
    
@@ -94,6 +79,15 @@ function App() {
                       <>
                         <PageTitle title="User Management | Jauhari - Admin Dashboard" />
                         <UserManagement />
+                      </>
+                    }
+                  />
+                    <Route
+                    path="/plan"
+                    element={
+                      <>
+                        <PageTitle title="Plans | Jauhari - Admin Dashboard" />
+                        <Plan />
                       </>
                     }
                   />

@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
-import UserOne from '../../images/user/user-01.png';
 import { useNavigate } from "react-router-dom";
 import jauhari from '../../images/cards/juahari.png';
+import { useAuth } from "../../context/AuthContext";
 
 const DropdownUser = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { setAuthenticated } = useAuth();
 
   // handle logout
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    setAuthenticated(false);
     navigate("/auth/signin");
   };
 

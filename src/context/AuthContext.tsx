@@ -19,22 +19,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
   const [storedOtp, setStoredOtp] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    setIsAuthenticated(!!token);
+  }, []);
+
   const setAuthenticated = (value: boolean) => {
     setIsAuthenticated(value);
     if (!value) {
       localStorage.removeItem('authToken');
     }
   };
-
-  useEffect(() => {
-    const handleStorage = () => {
-      const token = localStorage.getItem('authToken');
-      setIsAuthenticated(!!token);
-    };
-
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
 
   return (
     <AuthContext.Provider value={{

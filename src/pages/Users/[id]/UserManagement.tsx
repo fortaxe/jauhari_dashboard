@@ -44,8 +44,6 @@ const UserManagement = () => {
         setIsGoldAddManuallyOpen(false);
     };
 
-    console.log(userData)
-
     // Handler for withdrawal
     const handleWithdrawal = async () => {
         setIsWithdrawalPopupOpen(false);

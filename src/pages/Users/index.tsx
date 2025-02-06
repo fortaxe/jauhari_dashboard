@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import EditUser from "../../components/EditUser";
 import { Edit, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { BASE_URL, token } from "../../Constants";
+import { BASE_URL } from "../../Constants";
 import axios from "axios";
 import DeleteUser from "../../components/DeleteUser";
 import { useSearch } from "../../context/SearchContext";
+import useAuthToken from "../../hooks/useAuthToken";
 
 const Users = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Users = () => {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
     const { searchTerm } = useSearch();
+    const token = useAuthToken();
 
     const columns = [
         "User name",

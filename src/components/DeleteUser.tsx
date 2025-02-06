@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { BASE_URL, token } from "../Constants";
+import { BASE_URL } from "../Constants";
+import useAuthToken from "../hooks/useAuthToken";
 
 interface DeleteUserProps {
     isOpen: boolean;
@@ -21,6 +22,7 @@ const DeleteUser = ({ isOpen, onClose, userId, onUserUpdate }: DeleteUserProps) 
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
+    const token = useAuthToken();
 
     useEffect(() => {
         if (isOpen) {
@@ -59,9 +61,10 @@ const DeleteUser = ({ isOpen, onClose, userId, onUserUpdate }: DeleteUserProps) 
                 onUserUpdate(response.data.user);
                 toast.success("User Deleted Successfully");
             }
-        } catch (err: any) {
-            setError(err.message || "Failed to update user");
-            toast.error(err.message || "Failed to add SIP details");
+        } catch (error: any) {
+            const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "failed to delete user";
+            setError(errorMessage);
+            toast.error(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

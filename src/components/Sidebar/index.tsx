@@ -185,9 +185,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
 
-<svg 
-  className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
-  width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                     <path d="M3.92654 4.74854H17.0732C17.0732 4.74854 18.7165 4.74854 18.7165 6.39187V14.6085C18.7165 14.6085 18.7165 16.2519 17.0732 16.2519H3.92654C3.92654 16.2519 2.2832 16.2519 2.2832 14.6085V6.39187C2.2832 6.39187 2.2832 4.74854 3.92654 4.74854Z" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M2.2832 8.85645H18.7165" stroke="white" strokeWidth="1.28" strokeLinecap="round" strokeLinejoin="round" />
@@ -200,14 +200,40 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               <li>
                 <NavLink
+                  to="/plan"
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("pages") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
+                    }`}
+                >
+
+                  <svg
+                    className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <path d="M5.79883 12.0669H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M5.79883 8.93311H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M5.79883 15.2002H12.066" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M14.4125 7.3666V19.1135H3.45312V5.02051H14.4125V7.3666Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                    <path d="M14.4137 15.9797H17.5473V4.23281V1.88672H6.58789V5.02031" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
+                  </svg>
+
+
+                  <span className="group-hover:text-[#7A231C] group-[.bg-white]:text-[#7A231C]">
+
+                    Plans
+                  </span>
+                </NavLink>
+              </li>
+
+              {/* <li>
+                <NavLink
                   to="/business-setup"
                   className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("business-setup") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
 
-<svg 
-  className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
-  width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    className="[&>path]:stroke-white group-hover:[&>path]:stroke-[#7A231C] group-[.bg-white]:[&>path]:stroke-[#7A231C]"
+                    width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                     <path d="M5.01953 1.88672H15.9789V19.1133H5.01953V1.88672Z" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
                     <path d="M7.36719 5.02051H8.93398" stroke="white" strokeWidth="1.28" strokeMiterlimit={10} />
@@ -276,7 +302,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     Banner Setup
                   </span>
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/payment-info"

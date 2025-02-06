@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { BASE_URL, token } from "../Constants";
-
+import { BASE_URL } from "../Constants";
+import useAuthToken from "../hooks/useAuthToken";
 interface EditUserProps {
     isOpen: boolean;
     onClose: () => void;
@@ -20,7 +20,8 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, onUs
         email: email,
         mobileNumber: mobileNumber,
     });
-
+    const token = useAuthToken();
+    console.log(token, "token")
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
 
@@ -44,12 +45,15 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, onUs
     };
 
     const handleSubmit = async () => {
+       
         try {
             setIsSubmitting(true);
             setError("");
-
-            const response = await axios.patch(`${BASE_URL}/edit/user/by/admin`, formData, {
+           
+            const response = await axios.patch(
+                `${BASE_URL}/edit/user/by/admin`, formData, {
                 headers: {
+                    
                     "Authorization": `Bearer ${token}`
                 }
             });
@@ -60,9 +64,10 @@ const EditUser = ({ isOpen, onClose, userId, fullName, email, mobileNumber, onUs
                 onClose();
                 toast.success("User updated successfully");
             }
-        } catch (err: any) {
-            setError(err.message || "Failed to update user");
-            toast.error(err.message || "Failed to add SIP details");
+        } catch (error: any) {
+            const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "failed to update user";
+            setError(errorMessage);
+            toast.error(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

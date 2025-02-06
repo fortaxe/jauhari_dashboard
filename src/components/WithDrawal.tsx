@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { BASE_URL, token } from "../Constants";
+import { BASE_URL } from "../Constants";
 import Logo from './../images/logo/jauhari_logo.png';
+import useAuthToken from "../hooks/useAuthToken";
 interface WithdrawalPopupProps {
     isOpen: boolean;
     onClose: () => void;
@@ -23,6 +24,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
+    const token = useAuthToken();
 
     useEffect(() => {
         if (isOpen) {
@@ -58,8 +60,9 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
                 toast.success("OTP sent successfully");
             }
         } catch (error: any) {  
-            setError(error.message || "Failed to initiate withdrawal");
-            toast.error(error.message || "Failed to initiate withdrawal");
+            const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "failed to withdraw gold";
+            setError(errorMessage);
+            toast.error(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

@@ -33,8 +33,8 @@ const PaymentInfo = () => {
             <table className="w-full ">
               {/* Table Header */}
               <thead>
-                <tr className="bg-gray-200 text-black">
-                  <th className=" p-4 text-left text-sm font-semibold">Full Name</th>
+                <tr className="bg-[#F5F5F5] text-black">
+                  <th className=" p-4 text-left text-sm  font-semibold">Full Name</th>
                   <th className=" p-4 text-left text-sm font-semibold">Mobile Number</th>
                   <th className=" p-4 text-left text-sm font-semibold">PAN Card</th>
                   <th className=" p-4 text-left text-sm font-semibold">Screenshot</th>

@@ -8,7 +8,8 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
         const response = await axios.post(
-            `${BASE_URL}/get/user/sip/details`
+            // `${BASE_URL}/get/user/sip/details`
+            "http://localhost:5000/api/get/user/sip/details"
             , {
             userId
         },
@@ -18,12 +19,11 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
             }
         },
         )
-        return response.data
+        return response?.data
     } catch (error: any) {
-        toast.error(error.message)
+        toast.error(error?.message)
     }
 }
-
 
 export const fetchPaymentInfo = async () => {
     try {
@@ -33,9 +33,25 @@ export const fetchPaymentInfo = async () => {
             }
         },
         )
-        return response.data
+        return response?.data
     } catch (error: any) {
-        toast.error(error.message)
+        toast.error(error?.message)
     }
 }
 
+export const fetchPlans = async () => {
+    try {
+        const response = await axios.get(
+            // `${BASE_URL}/get/plans`
+            "http://localhost:5000/api/get/plans"
+            , {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        },
+        )
+        return response?.data
+    } catch (error: any) {
+        toast.error(error?.message)
+    }
+}

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { BASE_URL, token } from "../Constants";
-
+import { BASE_URL } from "../Constants";
+import useAuthToken from "../hooks/useAuthToken";
 interface AddGoldManuallyProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,6 +24,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const token = useAuthToken();
 
   const paymentModes = [
     { label: "Cash", value: "cash" },
@@ -82,7 +83,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
       }
 
       // Validate amount
-      if (!formData.monthlyAmount || Number(formData.monthlyAmount) <= 2500) {
+      if (!formData.monthlyAmount || Number(formData.monthlyAmount) < 2500) {
         throw new Error("Amount must be greater than 2500");
       }
       
@@ -100,8 +101,10 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
         onClose();
         toast.success("GSP added successfully");
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error || err.message || "Failed to add SIP details");
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "failed to add gold";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
