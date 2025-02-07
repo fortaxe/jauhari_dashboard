@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchAllSIPTransactions } from "../api/FetchSingleUser";
 import moment from "moment";
+import { useTransactionSearch } from "../context/TransactionSearchContext";
 
 const RecentTransactions = () => {
   const [transactions, setTransactions] = useState<any>(null);
+  const { searchTerm } = useTransactionSearch();
 
   const columns = [
     'Date', 
@@ -28,6 +30,22 @@ const RecentTransactions = () => {
 
   console.log(transactions);
 
+  const filteredTransactions = transactions?.filter((transaction: any) => {
+    if (!searchTerm) return true;
+    
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    
+    return (
+      transaction?.fullName?.toLowerCase().includes(lowerCaseSearchTerm) ||
+      transaction?.panCard?.toLowerCase().includes(lowerCaseSearchTerm) ||
+      moment(transaction?.date).format("MMM Do YY").toLowerCase().includes(lowerCaseSearchTerm) ||
+      String(transaction?.goldRate).toLowerCase().includes(lowerCaseSearchTerm) ||
+      transaction?.paymentMode?.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  });
+
+  console.log(searchTerm, "in transaciton page")
+
   return (
     <div>
       <div className="flex flex-col min-h-screen">
@@ -50,8 +68,7 @@ const RecentTransactions = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions &&
-                    transactions?.map((transaction: any, index: any) => (
+                  { filteredTransactions?.map((transaction: any, index: any) => (
                       <tr
                         key={transaction?._id}
                         className={`${index % 2 === 0 ? "bg-white" : "bg-[#F5F5F5]"}`}
@@ -68,13 +85,13 @@ const RecentTransactions = () => {
                         <td className="border-none p-4 capitalize">
                           {transaction?.gstAmount?.toFixed(2)}
                         </td>
-                       
-                        <td className="border-none p-4 capitalize">
-                          {transaction?.goldRate}
-                        </td>
                         <td className="border-none p-4 capitalize">
                           {transaction?.gramsAccumulated?.toFixed(2)}
                         </td>
+                        <td className="border-none p-4 capitalize">
+                          {transaction?.goldRate}
+                        </td>
+                       
                         {/* <td className="border-none p-4 capitalize">
                           {transaction?.transactionType}
                         </td> */}

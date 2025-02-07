@@ -20,6 +20,7 @@ import { SearchProvider } from "./context/SearchContext";
 import { useAuth } from "./context/AuthContext";
 import Plan from "./pages/plan";
 import RecentTransactions from "./pages/RecentTransactions";
+import { TransactionSearchProvider } from "./context/TransactionSearchContext";
 
 //Protected Route Component
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -41,6 +42,7 @@ function App() {
   return (
    
       <SearchProvider>
+         <TransactionSearchProvider>
       <Routes>
         {/* Auth Routes */}
         <Route path="/auth/signin" element={<SignIn />} />
@@ -103,66 +105,17 @@ function App() {
                   <Route
                     path="/recent-transactions"
                     element={
+                     
                       <>
                         <PageTitle title="Recent Transactions | Jauhari - Admin Dashboard" />
+                       
                         <RecentTransactions />
+                      
                       </>
+                     
                     }
                   />
-                  <Route
-                    path="/forms/form-layout"
-                    element={
-                      <>
-                        <PageTitle title="Form Layout | Jauhari - Admin Dashboard" />
-                        <FormLayout />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/tables"
-                    element={
-                      <>
-                        <PageTitle title="Tables | Jauhari - Admin Dashboard" />
-                        <Tables />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/settings"
-                    element={
-                      <>
-                        <PageTitle title="Settings | Jauhari - Admin Dashboard" />
-                        <Settings />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/chart"
-                    element={
-                      <>
-                        <PageTitle title="Basic Chart | Jauhari - Admin Dashboard" />
-                        <Chart />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/ui/alerts"
-                    element={
-                      <>
-                        <PageTitle title="Alerts | Jauhari - Admin Dashboard" />
-                        <Alerts />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/ui/buttons"
-                    element={
-                      <>
-                        <PageTitle title="Buttons | Jauhari - Admin Dashboard" />
-                        <Buttons />
-                      </>
-                    }
-                  />
+               
 
                 </Routes>
 
@@ -173,7 +126,7 @@ function App() {
       </Routes>
 
       <Toaster />
-    
+      </TransactionSearchProvider>
       </SearchProvider> 
       
      

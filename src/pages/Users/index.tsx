@@ -39,12 +39,17 @@ const Users = () => {
         fetchData();
     }, []);
 
-    const filteredUsers = usersData?.filter((user: any) =>
-        Object.values(user)
-          .join(' ')
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      );
+    const filteredUsers = usersData?.filter((user: any) => {
+        const lowerCaseSearchTerm = searchTerm?.toLowerCase() || "";
+    
+        return (
+            user?.fullName?.toLowerCase()?.includes(lowerCaseSearchTerm) ||
+            user?.email?.toLowerCase()?.includes(lowerCaseSearchTerm) ||
+            user?.mobileNumber?.toString().includes(searchTerm) || // Convert number to string
+            user?.panCard?.toLowerCase()?.includes(lowerCaseSearchTerm)
+        );
+    });
+    
 
     const handleClick = (id: any) => {
         navigate(`/users/${id}`);

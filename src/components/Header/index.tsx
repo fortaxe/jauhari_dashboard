@@ -6,6 +6,7 @@ import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import { useLocation } from "react-router-dom";
 import { useSearch } from "../../context/SearchContext";
+import { useTransactionSearch } from "../../context/TransactionSearchContext";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -13,7 +14,16 @@ const Header = (props: {
   setSearchTerm?: (term: string) => void; // Accept setSearchTerm as a prop
 }) => {
  const { pathname } = useLocation();
- const { searchTerm, setSearchTerm } = useSearch();
+
+// Dynamically use the correct search context
+const { searchTerm, setSearchTerm } =
+pathname === "/recent-transactions" ? useTransactionSearch() : useSearch();
+
+const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log('Search input changed:', e.target.value);
+  setSearchTerm(e.target.value);
+};
+
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-[#f5f7fa] dark:bg-boxdark dark:drop-shadow-none">
@@ -22,13 +32,14 @@ const Header = (props: {
      
       <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
-          {pathname === "/users" && (
+          {(pathname === "/users" || pathname === "/recent-transactions") && (
             <div className="relative flex items-center justify-between w-[347px] h-[48px]">
               <input
                 type="text"
                 placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm || ""}
+                onChange={handleSearchChange}
+               
                 className="rounded-[13px] py-[14px] px-[32px] bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125 border border-[#7A231C]"
               />
 
