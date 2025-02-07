@@ -52,9 +52,7 @@ const Plan = () => {
                     <th className="border-none p-4 text-left text-[#828282] text-sm font-normal">
                       Plan Banner
                     </th>
-                    <th className="border-none p-4 text-left text-[#828282] text-sm font-normal">
-                      Action
-                    </th>
+                    
                   </tr>
                 </thead>
                 <tbody>
