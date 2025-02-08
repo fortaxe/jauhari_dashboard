@@ -201,7 +201,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/plan"
-                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("pages") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
+                  className={`group relative flex items-center gap-2.5 rounded-[13px] px-4 py-2 font-medium text-white hover:text-[#7A231C] duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-meta-4 ${pathname.includes("plan") ? 'bg-white dark:bg-meta-4 text-[#7A231C]' : ''
                     }`}
                 >
 

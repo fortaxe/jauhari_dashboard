@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { fetchPlans } from "../../api/FetchSingleUser";
-import { Trash2 } from "lucide-react";
 import PlanPopup from "../../components/createPlan";
 
 const Plan = () => {

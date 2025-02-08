@@ -8,8 +8,8 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
         const response = await axios.post(
-            `${BASE_URL}/get/user/sip/details`
-            // "http://localhost:5000/api/get/user/sip/details"
+            // `${BASE_URL}/get/user/sip/details`
+           "http://localhost:5000/api/get/user/sip/details"
             , {
             userId
         },
@@ -43,7 +43,7 @@ export const fetchPlans = async () => {
     try {
         const response = await axios.get(
             `${BASE_URL}/get/plans`
-            // "http://localhost:5000/api/get/plans"
+            
             , {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -59,8 +59,8 @@ export const fetchPlans = async () => {
 export const fetchAllSIPTransactions = async () => {
     try {
         const response = await axios.get(
-            // `${BASE_URL}/get/all/sip/transactions`
-            "http://localhost:5000/api/get/all/sip/transactions"
+            `${BASE_URL}/get/all/sip/transactions`
+           
             , {
             headers: {
                 "Authorization": `Bearer ${token}`

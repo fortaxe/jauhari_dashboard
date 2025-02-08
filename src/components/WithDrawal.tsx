@@ -18,8 +18,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
     const [openOtp, setOpenOtp] = useState(false);
     const [formData, setFormData] = useState({
         otp: "",
-        sipId: sipId,  // Fixed variable name from sipd to sipId
- 
+        sipId: sipId, 
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);

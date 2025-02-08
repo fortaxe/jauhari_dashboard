@@ -1,6 +1,5 @@
 import UserCard from '../../../components/UserCard'
 import User2 from '../../../images/cards/user2.png'
-import Notes from '../../../images/cards/notes.png'
 import Money from '../../../images/cards/money.png'
 import Telephone from '../../../images/cards/telephone.png'
 import Box from '../../../images/cards/box.png'
@@ -50,6 +49,8 @@ const UserManagement = () => {
         await fetchData();
     };
 
+    console.log(userData, "user data")
+
     return (
         <div className="bg-[#F5F7FA]">
 
@@ -68,7 +69,7 @@ const UserManagement = () => {
                 <UserCard icon={Box} title='Total Gold Bought' value={userData?.activeSIP?.totalGramsAccumulated?.toFixed(2)} />
                
                
-                <UserCard icon={months} title='Completed Months' value={userData?.activeSIP?.completedMonths} />
+                <UserCard icon={months} title='Completed Months' value={userData?.activeSIP?.transactions?.length} />
                 <UserCard icon={dueDate} title='Next Due Date' value={
                    userData?.activeSIP?.nextDueDate ? moment(userData?.activeSIP?.nextDueDate).format('MMM Do YY') : ''
                     } />
@@ -99,6 +100,7 @@ const UserManagement = () => {
                     onClose={() => setIsGoldAddManuallyOpen(false)}
                     userId={userData?.user?._id}
                     onSuccess={handleGoldAdded}
+                    sip={userData?.activeSIP}
                 />
             )}
 
