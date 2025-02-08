@@ -7,6 +7,7 @@ import DarkModeSwitcher from './DarkModeSwitcher';
 import { useLocation } from "react-router-dom";
 import { useSearch } from "../../context/SearchContext";
 import { useTransactionSearch } from "../../context/TransactionSearchContext";
+import { useWithdrawalSearch } from "../../context/WithdrawalHistoryContext";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -17,13 +18,16 @@ const Header = (props: {
 
 // Dynamically use the correct search context
 const { searchTerm, setSearchTerm } =
-pathname === "/recent-transactions" ? useTransactionSearch() : useSearch();
+  pathname === "/recent-transactions"
+    ? useTransactionSearch()
+    : pathname === "/withdrawal-history"
+    ? useWithdrawalSearch()
+    : useSearch();
 
 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   console.log('Search input changed:', e.target.value);
   setSearchTerm(e.target.value);
 };
-
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-[#f5f7fa] dark:bg-boxdark dark:drop-shadow-none">
@@ -32,7 +36,7 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
      
       <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
-          {(pathname === "/users" || pathname === "/recent-transactions") && (
+          {(pathname === "/users" || pathname === "/recent-transactions" || pathname === "/withdrawal-history") && (
             <div className="relative flex items-center justify-between w-[347px] h-[48px]">
               <input
                 type="text"

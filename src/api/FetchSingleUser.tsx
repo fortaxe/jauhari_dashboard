@@ -72,3 +72,20 @@ export const fetchAllSIPTransactions = async () => {
         toast.error(error?.message)
     }
 }
+
+export const fetchAllCompletedSIPTransactions = async () => {
+    try {
+        const response = await axios.get(
+            // `${BASE_URL}/get/all/sip/transactions`
+           "http://localhost:5000/api/get/completed/sip/transactions"
+            , {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        },
+        )
+        return response?.data
+    } catch (error: any) {
+        toast.error(error?.message)
+    }
+}
