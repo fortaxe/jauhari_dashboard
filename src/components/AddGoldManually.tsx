@@ -10,15 +10,14 @@ interface AddGoldManuallyProps {
   onClose: () => void;
   userId: string;
   onSuccess: (response: any) => void;
-  sip: any;
 }
 
-const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldManuallyProps) => {
+const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManuallyProps) => {
   const [plans, setPlans] = useState<any>(null);
   const [openOtp, setOpenOtp] = useState(false);
   const [formData, setFormData] = useState({
     userId: userId,
-    monthlyPlanId: sip ? sip?.monthlyPlan?._id : "",
+    monthlyPlanId: "",
     month: "", // 
     paymentMode: "cash", // Default to cash
     date: new Date().toISOString().split('T')[0], // Default to today
@@ -27,7 +26,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
     otp: ""
   });
 
-  console.log(sip, "sip")
+
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -44,6 +43,8 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
     label: `${i + 1} Month`,
     value: String(i + 1)
   }));
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,7 +98,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
 
       const response = await axios.post(
         `${BASE_URL}/initiate/admin/add/sip/amount`
-
+       // "http://localhost:5000/api/initiate/admin/add/sip/amount"
         , {
           userId,
           monthlyPlanId: formData.monthlyPlanId,
@@ -132,6 +133,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
 
     const response = await axios.post(
       `${BASE_URL}/add/amount/sip/amount`
+      //"http://localhost:5000/api/add/amount/sip/amount"
       , {
         otp: formData.otp
       },
@@ -173,17 +175,10 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
                   <select
                     name="monthlyPlanId"
                     className="flex-1 h-10 rounded border border-gray-300 px-3 py-2"
-                    value={sip ? sip?.monthlyPlan?._id : formData.monthlyPlanId}
+                    value={formData.monthlyPlanId}
                     onChange={handleInputChange}
-                    disabled={!!sip} // Disable if an active SIP exists
                   >
-                    {sip ? (
-                      // Show the existing SIP plan as a disabled option
-                      <option value={sip?.monthlyPlan?._id} disabled>
-                        {sip?.monthlyPlan?.planName} - {sip?.monthlyPlan?.planAmount}
-                      </option>
-                    ) : (
-                      <>
+                 
                         {/* Default placeholder option */}
                         <option value="" disabled hidden>
                           Select a Plan
@@ -195,8 +190,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
                             {plan?.planName} - {plan?.planAmount}
                           </option>
                         ))}
-                      </>
-                    )}
+                    
                   </select>
                 </div>
 
@@ -334,7 +328,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess, sip }: AddGoldMan
                   Cancel
                 </button>
                 <button
-                  className="px-6 py-2 rounded-full bg-jauhari_yellow font-semibold text-white text-sm disabled:opacity-50"
+                  className="px-6 py-2 rounded-full bg-jauhari_red font-semibold text-white text-sm disabled:opacity-50"
                   onClick={handleVerifyOtp}
                   disabled={isSubmitting}
                 >

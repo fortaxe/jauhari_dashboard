@@ -100,7 +100,7 @@ const UserManagement = () => {
                     onClose={() => setIsGoldAddManuallyOpen(false)}
                     userId={userData?.user?._id}
                     onSuccess={handleGoldAdded}
-                    sip={userData?.activeSIP}
+                    
                 />
             )}
 

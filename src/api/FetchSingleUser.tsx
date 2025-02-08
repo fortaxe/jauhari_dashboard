@@ -8,8 +8,8 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 
         try {
         const response = await axios.post(
-            // `${BASE_URL}/get/user/sip/details`
-           "http://localhost:5000/api/get/user/sip/details"
+            `${BASE_URL}/get/user/sip/details`
+        //    "http://localhost:5000/api/get/user/sip/details"
             , {
             userId
         },
@@ -76,8 +76,8 @@ export const fetchAllSIPTransactions = async () => {
 export const fetchAllCompletedSIPTransactions = async () => {
     try {
         const response = await axios.get(
-            // `${BASE_URL}/get/all/sip/transactions`
-           "http://localhost:5000/api/get/completed/sip/transactions"
+            `${BASE_URL}/get/completed/sip/transactions`
+        //    "http://localhost:5000/api/get/completed/sip/transactions"
             , {
             headers: {
                 "Authorization": `Bearer ${token}`
