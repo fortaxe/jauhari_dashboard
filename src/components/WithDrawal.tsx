@@ -10,7 +10,7 @@ interface WithdrawalPopupProps {
     isOpen: boolean;
     onClose: () => void;
     sipId: string;
-    gramsAccumulated: string
+    gramsAccumulated: number
     onSuccess: (response: any) => void;
 }
 
@@ -130,7 +130,7 @@ const WithdrawalPopup = ({ isOpen, onClose, sipId, gramsAccumulated, onSuccess }
                                
                             />
 
-                        <h2 className="text-base font-semibold">Avaiable Gold Balance: {gramsAccumulated}</h2>
+                        <h2 className="text-base font-semibold">Avaiable Gold Balance: {gramsAccumulated?.toFixed(2)}</h2>
 
                             <button
                                 onClick={handleWithdraw}

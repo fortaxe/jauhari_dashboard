@@ -27,7 +27,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
   });
 
 
-
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const token = useAuthToken();
@@ -53,7 +53,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
     };
 
     fetchData();
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -98,7 +98,7 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
 
       const response = await axios.post(
         `${BASE_URL}/initiate/admin/add/sip/amount`
-       // "http://localhost:5000/api/initiate/admin/add/sip/amount"
+       //"http://localhost:5000/api/initiate/admin/add/sip/amount"
         , {
           userId,
           monthlyPlanId: formData.monthlyPlanId,
@@ -130,7 +130,8 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
   const handleVerifyOtp = async () => {
 
     if (!isOpen) return null;
-
+    setIsVerifyingOtp(true);
+    try {
     const response = await axios.post(
       `${BASE_URL}/add/amount/sip/amount`
       //"http://localhost:5000/api/add/amount/sip/amount"
@@ -149,9 +150,15 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
       onClose();
       toast.success("GSP added successfully");
     }
+    } catch (error: any) {
+      console.log(error);
+      const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "failed to add gold";
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setIsVerifyingOtp(false);
+    }
   };
-
-
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -330,9 +337,9 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
                 <button
                   className="px-6 py-2 rounded-full bg-jauhari_red font-semibold text-white text-sm disabled:opacity-50"
                   onClick={handleVerifyOtp}
-                  disabled={isSubmitting}
+                  disabled={isVerifyingOtp}
                 >
-                  {isSubmitting ? "Verifying..." : "Verify OTP"}
+                  {isVerifyingOtp ? "Verifying..." : "Verify OTP"}
                 </button>
               </div>
             </div>

@@ -63,7 +63,7 @@ const UserManagement = () => {
                 <UserCard
                     icon={Calendar}
                     title='Date Of Registration'
-                    value={userData?.user?.createdAt ? moment(userData.user.createdAt).format('MMM Do YY') : ''}
+                    value={userData?.activeSIP?.transactions[0]?.date ? moment(userData?.activeSIP?.transactions[0]?.date).format('MMM Do YY') : ''}
                 />
                 <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.totalAmountExculdingGst?.toFixed(2)} />
                 <UserCard icon={Box} title='Total Gold Bought' value={userData?.activeSIP?.totalGramsAccumulated?.toFixed(2)} />
