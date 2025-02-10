@@ -8,7 +8,7 @@ interface Transaction {
   amount?: number;
   gramsAccumulated?: number;
   goldRate?: number;
-
+  gstAmount?: number;
   transactionType: 'adminAddition' | 'withdrawal' | 'investment';
   paymentMode: 'cash' | 'creditCard' | 'upi';
   sipId: string;
@@ -22,7 +22,6 @@ interface SIP {
   _id: string;
   status: string;
   startDate: string;
-
   transactions: Transaction[];
 }
 
@@ -38,7 +37,7 @@ interface TransactionHistoryTabsProps {
 const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userData }) => {
   const [activeTab, setActiveTab] = useState<'transactions' | 'withdrawals'>('transactions');
 
-  const commonColumns = ['Transaction Date', 'Amount', 'Grams Accumulated', 'Gold Rate'];
+  const commonColumns = ['Transaction Date', 'Amount Excluding GST', 'GST Amount', 'Grams Accumulated', 'Gold Rate'];
   const transactionColumns = [...commonColumns, 'Transaction Type', 'Payment Mode'];
 
   console.log(userData);
@@ -50,7 +49,6 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
           ...txn,
           sipId: sip?._id,
           startDate: sip?.startDate,
-      
         }))
       ) || []
     );
@@ -79,7 +77,11 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
           {transactions?.map((txn, idx) => (
             <tr key={txn._id || idx} className="border-b">
               <td className="p-4">{moment(txn?.date).format('MMM Do YY')}</td>
+            
+             
               <td className="p-4">₹ {txn?.amount?.toFixed(2)}</td>
+              
+              <td className="p-4">{txn?.gstAmount?.toFixed(2)}</td>
               <td className="p-4">{txn?.gramsAccumulated?.toFixed(2)} gms</td>
               <td className="p-4">₹ {txn?.goldRate?.toFixed(2)}</td>
               {activeTab === 'transactions' && (

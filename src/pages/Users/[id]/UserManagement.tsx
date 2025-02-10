@@ -56,19 +56,17 @@ const UserManagement = () => {
 
             <div className="grid  grid-cols-1 gap-[12px] lg:grid-cols-3 mb-[40px]">
                 <UserCard icon={User2} title='User Name' value={userData?.user?.fullName} />
-                
                 <UserCard icon={Telephone} title='Phone' value={userData?.user?.mobileNumber} />
                 <UserCard icon={Adhaar} title='Adhar Card Number' value={userData?.user?.aadharCard} />
                 <UserCard icon={PanCard} title='Pan card no.' value={userData?.user?.panCard} />
                 <UserCard
                     icon={Calendar}
                     title='Date Of Registration'
-                    value={userData?.activeSIP?.transactions[0]?.date ? moment(userData?.activeSIP?.transactions[0]?.date).format('MMM Do YY') : ''}
+                    value={userData?.user?.createdAt ? moment(userData?.user?.createdAt).format('MMM Do YY') : ''}
                 />
+                {/* <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.monthlyPlan?.planAmount} /> */}
                 <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.totalAmountExculdingGst?.toFixed(2)} />
                 <UserCard icon={Box} title='Total Gold Bought' value={userData?.activeSIP?.totalGramsAccumulated?.toFixed(2)} />
-               
-               
                 <UserCard icon={months} title='Completed Months' value={userData?.activeSIP?.transactions?.length} />
                 <UserCard icon={dueDate} title='Next Due Date' value={
                    userData?.activeSIP?.nextDueDate ? moment(userData?.activeSIP?.nextDueDate).format('MMM Do YY') : ''

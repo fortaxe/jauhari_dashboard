@@ -25,7 +25,7 @@ const RecentTransactions = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchAllSIPTransactions();
-      setTransactions(data.data);
+      setTransactions(data?.data);
     };
 
     fetchData();
