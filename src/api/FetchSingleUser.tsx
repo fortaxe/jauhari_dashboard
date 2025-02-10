@@ -2,14 +2,13 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../Constants";
-const token = localStorage.getItem("authToken")
+
 
 export const fetchSingleUserData = async (userId: string | undefined) => {
-
+    const token = localStorage.getItem("authToken")
         try {
         const response = await axios.post(
             `${BASE_URL}/get/user/sip/details`
-        //    "http://localhost:5000/api/get/user/sip/details"
             , {
             userId
         },
@@ -26,6 +25,7 @@ export const fetchSingleUserData = async (userId: string | undefined) => {
 }
 
 export const fetchPaymentInfo = async () => {
+    const token = localStorage.getItem("authToken")
     try {
         const response = await axios.get(`${BASE_URL}/get/paymentConfirmation`, {
             headers: {
@@ -40,6 +40,7 @@ export const fetchPaymentInfo = async () => {
 }
 
 export const fetchPlans = async () => {
+    const token = localStorage.getItem("authToken")
     try {
         const response = await axios.get(
             `${BASE_URL}/get/plans`
@@ -57,6 +58,7 @@ export const fetchPlans = async () => {
 }
 
 export const fetchAllSIPTransactions = async () => {
+    const token = localStorage.getItem("authToken")
     try {
         const response = await axios.get(
             `${BASE_URL}/get/all/sip/transactions`
@@ -74,10 +76,10 @@ export const fetchAllSIPTransactions = async () => {
 }
 
 export const fetchAllCompletedSIPTransactions = async () => {
+    const token = localStorage.getItem("authToken")
     try {
         const response = await axios.get(
             `${BASE_URL}/get/completed/sip/transactions`
-        //    "http://localhost:5000/api/get/completed/sip/transactions"
             , {
             headers: {
                 "Authorization": `Bearer ${token}`

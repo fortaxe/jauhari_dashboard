@@ -98,7 +98,6 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
 
       const response = await axios.post(
         `${BASE_URL}/initiate/admin/add/sip/amount`
-       //"http://localhost:5000/api/initiate/admin/add/sip/amount"
         , {
           userId,
           monthlyPlanId: formData.monthlyPlanId,
@@ -134,7 +133,6 @@ const AddGoldManually = ({ isOpen, onClose, userId, onSuccess }: AddGoldManually
     try {
     const response = await axios.post(
       `${BASE_URL}/add/amount/sip/amount`
-      //"http://localhost:5000/api/add/amount/sip/amount"
       , {
         otp: formData.otp
       },
