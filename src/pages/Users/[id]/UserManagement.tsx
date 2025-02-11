@@ -65,7 +65,7 @@ const UserManagement = () => {
                     value={userData?.user?.createdAt ? moment(userData?.user?.createdAt).format('MMM Do YY') : ''}
                 />
                 {/* <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.monthlyPlan?.planAmount} /> */}
-                <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.totalAmountExculdingGst?.toFixed(2)} />
+                <UserCard icon={Money} title='Total Amount Invested' value={userData?.activeSIP?.totalAmountExcludingGst?.toFixed(2)} />
                 <UserCard icon={Box} title='Total Gold Bought' value={userData?.activeSIP?.totalGramsAccumulated?.toFixed(2)} />
                 <UserCard icon={months} title='Completed Months' value={userData?.activeSIP?.transactions?.length} />
                 <UserCard icon={dueDate} title='Next Due Date' value={

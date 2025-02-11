@@ -16,7 +16,7 @@ const Plan = () => {
 
   const handlePlanPopup = (response: any) => {
     console.log(response);
-    setPlans((prevPlans: any) => [...prevPlans, response?.plan]);
+    setPlans((prevPlans: any) => [...(prevPlans || []), response?.plan]);
     setIsOpen(false);
   };
 
