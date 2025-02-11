@@ -12,8 +12,7 @@ const WithdrawalHistory = () => {
   const columns = [
     'Date',
     'Total Amount',
-    'Amount Without GST',
-    'GST',
+    
     'GM',
     'Gold Rate',
     'Pan Card',
@@ -107,15 +106,11 @@ const WithdrawalHistory = () => {
                       <td className="border-none p-4 capitalize">
                         {moment(transaction?.date).format("MMM Do YY")}
                       </td>
-                      <td className="border-none p-4 capitalize">
-                        {(transaction?.gstAmount + (transaction?.amount)).toFixed(2)}
-                      </td>
+                    
                       <td className="border-none p-4 capitalize">
                         {transaction?.amount?.toFixed(2)}
                       </td>
-                      <td className="border-none p-4 capitalize">
-                        {transaction?.gstAmount?.toFixed(2)}
-                      </td>
+                      
                       <td className="border-none p-4 capitalize">
                         {transaction?.gramsAccumulated?.toFixed(2)}
                       </td>

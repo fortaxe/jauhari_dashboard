@@ -18,6 +18,7 @@ const RecentTransactions = () => {
     'GM',
     'Gold Rate',
     'Payment Mode',
+    'Debit/Credit',
     'Pan Card',
     'User Name'
   ];
@@ -109,16 +110,16 @@ const RecentTransactions = () => {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-              className="px-3 py-2 border-2 border-jauhari_red rounded-md cursor-pointer"
+                className="px-3 py-2 border-2 border-jauhari_red rounded-md cursor-pointer"
               />
             </div>
             {startDate && endDate && (
-            <button
-              onClick={clearDates}
-              className="bg-jauhari_red px-[20px] font-semibold h-[45px] text-white text-sm rounded-[8px]"
-            >
-              Clear
-            </button>
+              <button
+                onClick={clearDates}
+                className="bg-jauhari_red px-[20px] font-semibold h-[45px] text-white text-sm rounded-[8px]"
+              >
+                Clear
+              </button>
             )}
           </div>
           <button
@@ -152,7 +153,7 @@ const RecentTransactions = () => {
                         {moment(transaction?.date).format("MMM Do YY")}
                       </td>
                       <td className="border-none p-4 capitalize">
-                        {(transaction?.gstAmount + (transaction?.amount)).toFixed(2)}
+                        {transaction?.monthlyPlan}
                       </td>
                       <td className="border-none p-4 capitalize">
                         {transaction?.amount?.toFixed(2)}
@@ -166,14 +167,12 @@ const RecentTransactions = () => {
                       <td className="border-none p-4 capitalize">
                         {transaction?.goldRate}
                       </td>
-
-                      {/* <td className="border-none p-4 capitalize">
-                          {transaction?.transactionType}
-                        </td> */}
                       <td className="border-none p-4 capitalize">
                         {transaction?.paymentMode}
                       </td>
-
+                      <td className="border-none p-4 capitalize">
+                        {transaction?.transactionType === "investment" || transaction?.transactionType === "adminAddition" ? "Cr." : "Dr."}
+                      </td>
                       <td className="border-none p-4 capitalize">
                         {transaction?.panCard}
                       </td>
