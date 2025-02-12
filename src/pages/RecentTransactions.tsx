@@ -3,12 +3,14 @@ import { fetchAllSIPTransactions } from "../api/FetchSingleUser";
 import moment from "moment";
 import { useTransactionSearch } from "../context/TransactionSearchContext";
 import * as XLSX from "xlsx";
+import Loader from "../common/Loader";
 
 const RecentTransactions = () => {
   const [transactions, setTransactions] = useState<any>(null);
   const { searchTerm } = useTransactionSearch();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [loader, setLoader] = useState(false);
 
   const columns = [
     'Date',
@@ -25,8 +27,10 @@ const RecentTransactions = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       const data = await fetchAllSIPTransactions();
       setTransactions(data?.data);
+      setLoader(false);
     };
 
     fetchData();
@@ -83,6 +87,10 @@ const RecentTransactions = () => {
     setStartDate('');
     setEndDate('');
   };
+
+  if (loader) {
+    return <Loader />;
+  }
 
   return (
     <div>

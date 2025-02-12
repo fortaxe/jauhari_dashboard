@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import UserImage from '../../images/cards/user.png'
 import MoneyPouch from '../../images/cards/money-pouch.png'
@@ -6,19 +6,28 @@ import GreenSuccess from '../../images/cards/green-success.png'
 import OrangeSuccess from '../../images/cards/orange-success.png'
 import Chart from '../../images/cards/chart.png'
 import fetchAnalyticsData from '../../api/FetchAnalytic';
+import Loader from "../../common/Loader";
 
 const Dashboard: React.FC = () => {
+  const [loading, setLoading] = useState(false);
 
   const [analyticData, setAnalyticData] = React.useState<any>(null);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const data = await fetchAnalyticsData();
       setAnalyticData(data)
+      setLoading(false);
       console.log(data);
     };
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
         <h2 className='text-[23px] font-bold text-black mb-[18px]'>User Details</h2>

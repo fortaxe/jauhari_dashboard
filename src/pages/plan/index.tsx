@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
 import { fetchPlans } from "../../api/FetchSingleUser";
 import PlanPopup from "../../components/createPlan";
+import Loader from "../../common/Loader";
 
 const Plan = () => {
   const [plans, setPlans] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       const data = await fetchPlans();
       setPlans(data);
+      setLoader(false);
     };
 
     fetchData();
   }, []);
+
+  if (loader) {
+    return <Loader />;
+  }
 
   const handlePlanPopup = (response: any) => {
     console.log(response);

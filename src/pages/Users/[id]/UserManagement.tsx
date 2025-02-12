@@ -15,17 +15,21 @@ import moment from 'moment';
 import AddGoldManually from "../../../components/AddGoldManually"
 import WithdrawalPopup from "../../../components/WithDrawal"
 import TransactionHistoryTabs from "../../../components/TransactionHistoryTabs"
+import Loader from "../../../common/Loader"
 
 const UserManagement = () => {
     const [isGoldAddManuallyOpen, setIsGoldAddManuallyOpen] = useState(false);
     const [isWithdrawalPopupOpen, setIsWithdrawalPopupOpen] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const { id } = useParams();
+    const [loading, setLoading] = useState(false);
 
     // Define fetchData outside useEffect
     const fetchData = async () => {
+        setLoading(true)
         const data = await fetchSingleUserData(id);
         setUserData(data);
+        setLoading(false)
     };
 
     useEffect(() => {
@@ -50,6 +54,8 @@ const UserManagement = () => {
     };
 
     console.log(userData, "user data")
+
+    if (loading) return <Loader />
 
     return (
         <div className="bg-[#F5F7FA]">

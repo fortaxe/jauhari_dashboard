@@ -9,6 +9,7 @@ import axios from "axios";
 import DeleteUser from "../../components/DeleteUser";
 import { useSearch } from "../../context/SearchContext";
 import useAuthToken from "../../hooks/useAuthToken";
+import Loader from "../../common/Loader";
 
 const Users = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Users = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
+    const [loader, setLoader] = useState(false);
     const { searchTerm } = useSearch();
     const token = useAuthToken();
 
@@ -31,13 +33,18 @@ const Users = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoader(true);
             const data = await fetchUsersData();
             setUsersData(data)
-            console.log(data);
+            setLoader(false);
         };
 
         fetchData();
     }, []);
+
+    if (loader) {
+        return <Loader />;
+    }
 
     const filteredUsers = usersData?.filter((user: any) => {
         const lowerCaseSearchTerm = searchTerm?.toLowerCase() || "";

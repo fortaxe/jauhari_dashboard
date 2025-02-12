@@ -3,11 +3,12 @@ import { fetchAllCompletedSIPTransactions } from "../../api/FetchSingleUser";
 import moment from "moment";
 import { useWithdrawalSearch } from "../../context/WithdrawalHistoryContext";
 import * as XLSX from "xlsx";
+import Loader from "../../common/Loader";
 
 const WithdrawalHistory = () => {
   const [transactions, setTransactions] = useState<any>(null);
   const { searchTerm } = useWithdrawalSearch();
-
+  const [loader, setLoader] = useState(false);
 
   const columns = [
     'Date',
@@ -21,8 +22,10 @@ const WithdrawalHistory = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       const data = await fetchAllCompletedSIPTransactions();
       setTransactions(data.data);
+      setLoader(false);
     };
 
     fetchData();
@@ -64,6 +67,10 @@ const WithdrawalHistory = () => {
 
     XLSX.writeFile(workbook, fileName);
   };
+
+  if (loader) {
+    return <Loader />;
+  }
 
   return (
     <div>
