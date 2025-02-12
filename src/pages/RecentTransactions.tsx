@@ -44,8 +44,8 @@ const RecentTransactions = () => {
       transaction?.fullName?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
       transaction?.panCard?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
       moment(transaction?.date)?.format("MMM Do YY")?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
-      String(transaction?.goldRate)?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
-      transaction?.paymentMode?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+      String(transaction?.goldRate)?.toLowerCase()?.includes(searchTerm?.toLowerCase());
+      // transaction?.paymentMode?.toLowerCase()?.includes(searchTerm?.toLowerCase());
 
     // Date range filter
     const transactionDate = moment(transaction?.date)?.startOf('day');
@@ -161,7 +161,9 @@ const RecentTransactions = () => {
                         {moment(transaction?.date).format("MMM Do YY")}
                       </td>
                       <td className="border-none p-4 capitalize">
-                        {transaction?.monthlyPlan}
+                        {(transaction?.amount == null || transaction?.gstAmount == null)
+                          ? 0
+                          : transaction?.amount + transaction?.gstAmount}
                       </td>
                       <td className="border-none p-4 capitalize">
                         {transaction?.amount?.toFixed(2)}
@@ -176,7 +178,7 @@ const RecentTransactions = () => {
                         {transaction?.goldRate}
                       </td>
                       <td className="border-none p-4 capitalize">
-                        {transaction?.paymentMode}
+                        {transaction?.paymentMode === "creditCard" ? "Credit Card" : transaction?.paymentMode}
                       </td>
                       <td className="border-none p-4 capitalize">
                         {transaction?.transactionType === "investment" || transaction?.transactionType === "adminAddition" ? "Cr." : "Dr."}
