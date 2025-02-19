@@ -161,12 +161,10 @@ const RecentTransactions = () => {
                         {moment(transaction?.date).format("MMM Do YY")}
                       </td>
                       <td className="border-none p-4 capitalize">
-                        {(transaction?.amount == null || transaction?.gstAmount == null)
-                          ? 0
-                          : transaction?.amount + transaction?.gstAmount}
+                        {transaction?.amount?.toFixed(2)}
                       </td>
                       <td className="border-none p-4 capitalize">
-                        {transaction?.amount?.toFixed(2)}
+                        {transaction?.monthlyPlan}
                       </td>
                       <td className="border-none p-4 capitalize">
                         {transaction?.gstAmount?.toFixed(2)}

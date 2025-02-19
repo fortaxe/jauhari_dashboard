@@ -37,8 +37,8 @@ interface TransactionHistoryTabsProps {
 const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userData }) => {
   const [activeTab, setActiveTab] = useState<'transactions' | 'withdrawals'>('transactions');
 
-  const commonColumns = ['Transaction Date', 'Amount Excluding GST', 'GST Amount', 'Grams Accumulated', 'Gold Rate'];
-  const transactionColumns = [...commonColumns, 'Transaction Type', 'Payment Mode'];
+  const commonColumns = ['Transaction Date', 'Total Amount', 'Grams Accumulated', 'Gold Rate'];
+  const transactionColumns = ['Transaction Date', 'Total Amount', 'GST Amount', 'Grams Accumulated', 'Gold Rate', 'Transaction Type', 'Payment Mode'];
 
   console.log(userData);
 
@@ -81,7 +81,7 @@ const TransactionHistoryTabs: React.FC<TransactionHistoryTabsProps> = ({ userDat
              
               <td className="p-4">₹ {txn?.amount?.toFixed(2)}</td>
               
-              <td className="p-4">{txn?.gstAmount?.toFixed(2)}</td>
+              {activeTab === 'transactions' && <td className="p-4">{txn?.gstAmount?.toFixed(2)}</td>}
               <td className="p-4">{txn?.gramsAccumulated?.toFixed(2)} gms</td>
               <td className="p-4">₹ {txn?.goldRate?.toFixed(2)}</td>
               {activeTab === 'transactions' && (
